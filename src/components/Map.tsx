@@ -17,7 +17,10 @@ const Map = () => {
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
       >
-        <Marker />
+        <Marker
+          lat={10.99835}
+          lng={77.015026}
+        />
       </GoogleMapReact>
     </div>
   );
