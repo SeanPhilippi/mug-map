@@ -1,28 +1,27 @@
-import GoogleMapReact from 'google-map-react';
-import Marker from './Marker';
+import React from 'react';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 
-const Map = () => {
-  const defaultProps = {
-    center: {
-      lat: 10.99835602,
-      lng: 77.01502627,
-    },
-    zoom: 11,
-  };
+const Map: React.FC = () => {
+  // latitude, longitude
+  const position: [number, number] = [51.505, -0.09];
 
   return (
-    <div style={{ height: '80vh', width: '100vh' }}>
-      <GoogleMapReact
-        bootstrapURLKeys={{ key: import.meta.env.VITE_REACT_APP_MAPS_API_KEY }}
-        defaultCenter={defaultProps.center}
-        defaultZoom={defaultProps.zoom}
-      >
-        <Marker
-          lat={10.99835}
-          lng={77.015026}
-        />
-      </GoogleMapReact>
-    </div>
+    <MapContainer
+      style={{ height: '80vh', width: '100vh' }}
+      center={[51.505, -0.09]}
+      zoom={13}
+      scrollWheelZoom={false}
+    >
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+      />
+      <Marker position={position}>
+        <Popup>
+          A pretty CSS3 popup. <br /> Easily customizable.
+        </Popup>
+      </Marker>
+    </MapContainer>
   );
 };
 
