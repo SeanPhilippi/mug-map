@@ -9,7 +9,7 @@ const Map: React.FC = () => {
   return (
     <>
       <MapContainer
-        style={{ height: '80vh', width: '100vh' }}
+        style={{ height: '80vh', width: '95vw' }}
         center={[51.505, -0.09]}
         zoom={13}
         scrollWheelZoom={false}
