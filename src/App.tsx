@@ -20,10 +20,8 @@ const App = () => {
           />
         </a>
       </div>
-      <h1>Mug Map</h1>
-      <div className='card'>
-        <Map />
-      </div>
+      <div style={{ fontSize: '32px', padding: '1rem' }}>Mug Map</div>
+      <Map />
     </>
   );
 };
