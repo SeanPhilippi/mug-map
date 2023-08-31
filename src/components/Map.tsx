@@ -8,14 +8,21 @@ const Map: React.FC = () => {
   const position: [number, number] = [51.505, -0.09];
 
   const mockBusinessData = {
-    name: 'test',
-    address: 'test',
-    website: 'test',
-    phone: 'test',
-    email: 'test',
-    instagram: 'test',
-    x: 'test',
-    facebook: 'test',
+    name: 'Mock Business',
+    website: 'www.mockbusiness.com',
+    phone: '603-555-0123',
+    email: 'info@mockbusiness.com',
+    instagram: 'mockbusiness',
+    x: 'mockbusiness',
+    facebook: 'mockbusiness',
+    address: {
+      street1: '123 Main Street',
+      street2: 'Suite 456',
+      city: 'Manchester',
+      state: 'NH',
+      country: 'USA',
+      zip: '03101',
+    },
   };
 
   return (

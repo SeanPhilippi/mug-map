@@ -3,9 +3,18 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
+type Address = {
+  street1: string;
+  street2: string;
+  country: string;
+  city: string;
+  state: string;
+  zip: string;
+};
+
 interface BusinessData {
   name: string;
-  address: string;
+  address: Address;
   website: string;
   phone: string;
   email: string;
@@ -19,7 +28,16 @@ interface DetailsCardProps {
 }
 
 const DetailsCard: FC<DetailsCardProps> = ({
-  businessData: { name, address, website, phone, email, instagram, x, facebook },
+  businessData: {
+    name,
+    address: { street1, street2, city, country, state, zip },
+    website,
+    phone,
+    email,
+    instagram,
+    x,
+    facebook,
+  },
 }) => {
   return (
     <Card variant='outlined'>
@@ -33,8 +51,23 @@ const DetailsCard: FC<DetailsCardProps> = ({
         <Typography
           variant='body2'
           color='text.secondary'
+          sx={{ lineHeight: '.5' }}
         >
-          {address}
+          {`${street1}${street2 ? `, ${street2}` : ''}`}
+        </Typography>
+        <Typography
+          variant='body2'
+          color='text.secondary'
+          sx={{ lineHeight: '.5' }}
+        >
+          {`${city}, ${state}`}
+        </Typography>
+        <Typography
+          variant='body2'
+          color='text.secondary'
+          sx={{ lineHeight: '.5' }}
+        >
+          {`${country} ${zip}`}
         </Typography>
         <Typography
           variant='body2'
@@ -46,7 +79,7 @@ const DetailsCard: FC<DetailsCardProps> = ({
           variant='body2'
           color='text.secondary'
         >
-          {phone}
+          Phone: {phone}
         </Typography>
         <Typography
           variant='body2'
@@ -58,19 +91,19 @@ const DetailsCard: FC<DetailsCardProps> = ({
           variant='body2'
           color='text.secondary'
         >
-          Instagram: <a href={`https://www.instagram.com/${instagram}`}>{instagram}</a>
+          Instagram: <a href={`https://www.instagram.com/${instagram}`}>@{instagram}</a>
         </Typography>
         <Typography
           variant='body2'
           color='text.secondary'
         >
-          Twitter: <a href={`https://www.twitter.com/${x}`}>{x}</a>
+          X: <a href={`https://www.x.com/${x}`}>@{x}</a>
         </Typography>
         <Typography
           variant='body2'
           color='text.secondary'
         >
-          Facebook: <a href={facebook}>{facebook}</a>
+          Facebook: <a href={`https://www.facebook.com/${facebook}`}>{facebook}</a>
         </Typography>
       </CardContent>
     </Card>
