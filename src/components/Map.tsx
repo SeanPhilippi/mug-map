@@ -1,10 +1,22 @@
 import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import Button from '@mui/material/Button';
+import DetailsCard from './DetailsCard';
 
 const Map: React.FC = () => {
   // latitude, longitude
   const position: [number, number] = [51.505, -0.09];
+
+  const mockBusinessData = {
+    name: 'test',
+    address: 'test',
+    website: 'test',
+    phone: 'test',
+    email: 'test',
+    instagram: 'test',
+    x: 'test',
+    facebook: 'test',
+  };
 
   return (
     <>
@@ -20,7 +32,7 @@ const Map: React.FC = () => {
         />
         <Marker position={position}>
           <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
+            <DetailsCard businessData={mockBusinessData} />
           </Popup>
         </Marker>
       </MapContainer>
