@@ -1,18 +1,37 @@
 import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import Button from '@mui/material/Button';
+import DetailsCard from './DetailsCard';
 
 const Map: React.FC = () => {
   // latitude, longitude
   const position: [number, number] = [51.505, -0.09];
 
+  const mockBusinessData = {
+    name: 'Mock Business',
+    website: 'www.mockbusiness.com',
+    phone: '603-555-0123',
+    email: 'info@mockbusiness.com',
+    instagram: 'mockbusiness',
+    x: 'mockbusiness',
+    facebook: 'mockbusiness',
+    address: {
+      street1: '123 Main Street',
+      street2: 'Suite 456',
+      city: 'Manchester',
+      state: 'NH',
+      country: 'USA',
+      zip: '03101',
+    },
+  };
+
   return (
     <>
       <MapContainer
-        style={{ height: '80vh', width: '100vh' }}
+        style={{ height: '80vh', width: '95vw' }}
         center={[51.505, -0.09]}
         zoom={13}
-        scrollWheelZoom={false}
+        scrollWheelZoom={true}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -20,7 +39,7 @@ const Map: React.FC = () => {
         />
         <Marker position={position}>
           <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
+            <DetailsCard businessData={mockBusinessData} />
           </Popup>
         </Marker>
       </MapContainer>
