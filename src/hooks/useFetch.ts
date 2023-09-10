@@ -1,19 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { API_URL } from '../constants.ts';
 
-export const useFetch = (url: string) => {
+export const useFetch = () => {
   const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const loadData = async () => {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-      const data = await response.json();
-      setData(data);
+  const query = async (route: string) => {
+    try {
+      const response = await fetch(`${API_URL}/${route}`);
+      setData(response.json());
+    } catch (err) {
+      setError(err);
     }
-    loadData();
-  }, ['https://127.0.0.1:5000']);
+  };
 
-  return data;
+  return { data, error, query };
 };

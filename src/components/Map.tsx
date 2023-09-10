@@ -43,14 +43,14 @@ const Map: React.FC = () => {
           </Popup>
         </Marker>
       </MapContainer>
-      <Button
+      {/* <Button
         style={{ marginTop: '1rem' }}
         variant='contained'
         color='primary'
         onClick={() => console.log('clicked')}
       >
         New Submission
-      </Button>
+      </Button> */}
     </>
   );
 };

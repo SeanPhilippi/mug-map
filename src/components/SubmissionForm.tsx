@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Checkbox, FormControlLabel, Button, Typography } from '@material-ui/core';
+import { useFetch } from '../hooks/useFetch.ts';
 
 const useStyles = makeStyles(theme => ({
   form: {
@@ -13,25 +14,27 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function SubmissionForm() {
+const SubmissionForm = () => {
   const classes = useStyles();
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    // handle form submission logic
-  };
+  const { data, error, query } = useFetch();
+  console.log('data', data);
+  console.log('error', error);
 
   return (
     <form
       className={classes.form}
-      onSubmit={handleSubmit}
+      onSubmit={e => {
+        e.preventDefault();
+        query('test');
+      }}
     >
       <Typography variant='h6'>Business Information</Typography>
       <TextField
         label='Business Name*'
         required
       />
-      <TextField
+      {/* <TextField
         label='Address (Street 1)*'
         required
       />
@@ -98,7 +101,7 @@ function SubmissionForm() {
         label='Message to Admin'
         multiline
         rows={4}
-      />
+      /> */}
       <Button
         type='submit'
         variant='contained'
@@ -109,6 +112,6 @@ function SubmissionForm() {
       </Button>
     </form>
   );
-}
+};
 
 export default SubmissionForm;
