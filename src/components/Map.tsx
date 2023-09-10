@@ -1,25 +1,57 @@
-import GoogleMapReact from 'google-map-react';
-import Marker from './Marker';
+import React from 'react';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import Button from '@mui/material/Button';
+import DetailsCard from './DetailsCard';
 
-const Map = () => {
-  const defaultProps = {
-    center: {
-      lat: 10.99835602,
-      lng: 77.01502627,
+const Map: React.FC = () => {
+  // latitude, longitude
+  const position: [number, number] = [51.505, -0.09];
+
+  const mockBusinessData = {
+    name: 'Mock Business',
+    website: 'www.mockbusiness.com',
+    phone: '603-555-0123',
+    email: 'info@mockbusiness.com',
+    instagram: 'mockbusiness',
+    x: 'mockbusiness',
+    facebook: 'mockbusiness',
+    address: {
+      street1: '123 Main Street',
+      street2: 'Suite 456',
+      city: 'Manchester',
+      state: 'NH',
+      country: 'USA',
+      zip: '03101',
     },
-    zoom: 11,
   };
 
   return (
-    <div style={{ height: '100vh', width: '100%' }}>
-      <GoogleMapReact
-        bootstrapURLKeys={{ key: import.meta.env.REACT_APP_MAPS_API_KEY }}
-        defaultCenter={defaultProps.center}
-        defaultZoom={defaultProps.zoom}
+    <>
+      <MapContainer
+        style={{ height: '80vh', width: '95vw' }}
+        center={[51.505, -0.09]}
+        zoom={13}
+        scrollWheelZoom={true}
       >
-        <Marker />
-      </GoogleMapReact>
-    </div>
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+        />
+        <Marker position={position}>
+          <Popup>
+            <DetailsCard businessData={mockBusinessData} />
+          </Popup>
+        </Marker>
+      </MapContainer>
+      {/* <Button
+        style={{ marginTop: '1rem' }}
+        variant='contained'
+        color='primary'
+        onClick={() => console.log('clicked')}
+      >
+        New Submission
+      </Button> */}
+    </>
   );
 };
 
