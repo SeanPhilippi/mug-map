@@ -50,15 +50,16 @@ const App = () => {
         aria-labelledby='form-dialog-title'
       >
         <DialogTitle id='form-dialog-title'>
-          Submission Form
-          <IconButton
-            edge='end'
-            color='inherit'
-            onClick={handleClose}
-            aria-label='close'
-          >
-            <CloseIcon />
-          </IconButton>
+          <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
+            Submission Form
+            <IconButton
+              color='inherit'
+              onClick={handleClose}
+              aria-label='close'
+            >
+              <CloseIcon />
+            </IconButton>
+          </div>
         </DialogTitle>
         <DialogContent>
           <SubmissionForm />

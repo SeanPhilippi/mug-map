@@ -15,6 +15,7 @@ export const useFetch = () => {
         response = await axios.get(`${API_URL}/${route}`);
       }
       setData(response.data);
+      return response.data;
     } catch (err) {
       setError(err);
     }

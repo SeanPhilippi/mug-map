@@ -7,6 +7,7 @@ const useStyles = makeStyles(theme => ({
   form: {
     display: 'flex',
     flexDirection: 'column',
+    // ! look at these styles, don't seem to be working
     gap: theme.spacing(2),
   },
   submitButton: {
@@ -29,6 +30,7 @@ const SubmissionForm = () => {
     city: '',
     country: '',
     zip: '',
+    phone: '',
     email: '',
     instagram: '',
     facebook: '',
@@ -53,72 +55,96 @@ const SubmissionForm = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    query('test', formFields);
-  }
+    const data = await query('businesses', formFields);
+    console.log('==data', data);
+  };
 
   return (
     <form
       className={classes.form}
       onSubmit={handleSubmit}
+      style={{ width: '33rem' }}
     >
       <Typography variant='h6'>Business Information</Typography>
       <TextField
         name='name'
-        label='Business Name*'
+        label='Business Name'
+        variant='outlined'
         required
         onChange={handleChange}
       />
       <TextField
         name='address1'
-        label='Address (Street 1)*'
+        label='Address (Street 1)'
+        variant='outlined'
         required
         onChange={handleChange}
       />
-      <TextField label='Address (Street 2)' />
       <TextField
         name='address2'
-        label='City*'
+        label='Address (Street 2)'
+        variant='outlined'
+        onChange={handleChange}
+      />
+      <TextField
+        name='city'
+        label='City'
         required
+        variant='outlined'
         onChange={handleChange}
       />
       <TextField
         name='country'
-        label='Country*'
+        label='Country'
+        variant='outlined'
         required
         onChange={handleChange}
       />
       <TextField
         name='zip'
-        label='Zip*'
+        label='Zip'
+        variant='outlined'
         required
         onChange={handleChange}
       />
       <TextField
         name='phone'
         label='Phone'
+        variant='outlined'
+        onChange={handleChange}
       />
       <TextField
         name='email'
         label='Email'
+        variant='outlined'
         type='email'
+        onChange={handleChange}
       />
       <TextField
         name='instagram'
         label='Instagram'
+        variant='outlined'
+        onChange={handleChange}
       />
       <TextField
         name='facebook'
         label='Facebook'
+        variant='outlined'
+        onChange={handleChange}
       />
       <TextField
         name='x'
         label='X'
+        variant='outlined'
+        onChange={handleChange}
       />
       <TextField
-        name='Website'
+        name='website'
         label='Website'
+        variant='outlined'
+        onChange={handleChange}
       />
       <Typography
         variant='h6'
@@ -130,38 +156,46 @@ const SubmissionForm = () => {
         control={<Checkbox />}
         name='has_mugs'
         label='Has Mugs'
+        onChange={handleChange}
       />
       <FormControlLabel
         control={<Checkbox />}
         name='no_mugs'
         label='No Mugs'
+        onChange={handleChange}
       />
       <FormControlLabel
         control={<Checkbox />}
         name='wifi'
         label='WiFi'
+        onChange={handleChange}
       />
       <FormControlLabel
         control={<Checkbox />}
         name='work_friendly'
         label='Work-friendly'
+        onChange={handleChange}
       />
       <TextField
         name='description'
         label='Description'
+        variant='outlined'
         multiline
-        rows={4}
+        minRows={4}
+        onChange={handleChange}
       />
       <Typography variant='h6'>Submitter Information</Typography>
       <TextField
         name='submitter_name'
-        label='Submitter Name*'
+        label='Submitter Name'
+        variant='outlined'
         required
         onChange={handleChange}
       />
       <TextField
         name='submitter_email'
-        label='Submitter Email*'
+        label='Submitter Email'
+        variant='outlined'
         type='email'
         required
         onChange={handleChange}
@@ -169,8 +203,10 @@ const SubmissionForm = () => {
       <TextField
         name='message_to_admin'
         label='Message to Admin'
+        variant='outlined'
         multiline
         minRows={4}
+        onChange={handleChange}
       />
       <Button
         type='submit'
