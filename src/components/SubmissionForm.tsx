@@ -15,6 +15,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+// ! ADD VALIDATION TO FORM FIELDS THAT NEED IT
 const SubmissionForm = () => {
   const classes = useStyles();
 
@@ -37,8 +38,7 @@ const SubmissionForm = () => {
     x: '',
     website: '',
     // checkboxes
-    hasMugs: false,
-    no_mugs: false,
+    offers_mugs: false,
     wifi: false,
     work_friendly: false,
     // text fields
@@ -107,12 +107,14 @@ const SubmissionForm = () => {
         label='Zip'
         variant='outlined'
         required
+        type='number'
         onChange={handleChange}
       />
       <TextField
         name='phone'
         label='Phone'
         variant='outlined'
+        type='number'
         onChange={handleChange}
       />
       <TextField
@@ -122,24 +124,40 @@ const SubmissionForm = () => {
         type='email'
         onChange={handleChange}
       />
+      <Typography
+        variant='h6'
+        component='div'
+      >
+        Social Media
+      </Typography>
       <TextField
         name='instagram'
         label='Instagram'
         variant='outlined'
+        placeholder='@'
         onChange={handleChange}
       />
       <TextField
         name='facebook'
         label='Facebook'
         variant='outlined'
+        placeholder='facebook.com/'
         onChange={handleChange}
       />
       <TextField
         name='x'
         label='X'
         variant='outlined'
+        placeholder='@'
         onChange={handleChange}
       />
+      {/* <TextField
+        name='youtube'
+        label='Youtube'
+        variant='outlined'
+        placeholder='youtube.com/
+        onChange={handleChange}
+      /> */}
       <TextField
         name='website'
         label='Website'
@@ -154,14 +172,8 @@ const SubmissionForm = () => {
       </Typography>
       <FormControlLabel
         control={<Checkbox />}
-        name='has_mugs'
-        label='Has Mugs'
-        onChange={handleChange}
-      />
-      <FormControlLabel
-        control={<Checkbox />}
-        name='no_mugs'
-        label='No Mugs'
+        name='offers'
+        label='Offers Mugs'
         onChange={handleChange}
       />
       <FormControlLabel
