@@ -2,6 +2,7 @@ import { useState } from 'react';
 import viteLogo from '/vite.svg';
 import './App.css';
 import Map from './components/Map';
+import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -9,6 +10,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import SubmissionForm from './components/SubmissionForm';
+
+const useStyles = makeStyles({
+  submitButton: {
+    marginTop: '2rem',
+    marginBottom: '2rem',
+  },
+});
 
 const App = () => {
   const [open, setOpen] = useState(false);
@@ -20,6 +28,8 @@ const App = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const classes = useStyles();
 
   return (
     <>
@@ -38,6 +48,7 @@ const App = () => {
       <div style={{ fontSize: '32px', padding: '1rem' }}>Mug Map</div>
       <Map />
       <Button
+        className={classes.submitButton}
         variant='outlined'
         color='primary'
         onClick={handleClickOpen}

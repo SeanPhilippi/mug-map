@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Checkbox, FormControlLabel, Button, Typography } from '@material-ui/core';
 import { useFetch } from '../hooks/useFetch.ts';
+import axios, { AxiosResponse } from 'axios';
 
 const useStyles = makeStyles(theme => ({
   form: {
@@ -14,6 +15,15 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2),
   },
 }));
+
+const getCoordinatesFromOpenCage = async (address: string) => {
+  const apiKey = import.meta.env.VITE_APP_OPEN_CAGE_KEY;
+  const response: AxiosResponse = await axios.get(
+    `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(address)}&key=${apiKey}`,
+  );
+  const { lat, lng } = response.data.results[0].geometry;
+  return { lat, lng };
+};
 
 // ! ADD VALIDATION TO FORM FIELDS THAT NEED IT
 const SubmissionForm = () => {
@@ -29,6 +39,7 @@ const SubmissionForm = () => {
     address1: '',
     address2: '',
     city: '',
+    state: '',
     country: '',
     zip: '',
     phone: '',
@@ -57,7 +68,12 @@ const SubmissionForm = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data = await query('businesses', formFields);
+    // ! get coordinates using business address
+    // ! add coords to formFields
+    // const address
+    const address = `${formFields.address1} ${formFields.address2}, ${formFields.city}, ${formFields.state}, ${formFields.country}`;
+    const coords = getCoordinatesFromOpenCage(address);
+    const data = await query('businesses', { ...formFields, ...coords });
     console.log('==data', data);
   };
 
@@ -92,6 +108,12 @@ const SubmissionForm = () => {
         name='city'
         label='City'
         required
+        variant='outlined'
+        onChange={handleChange}
+      />
+      <TextField
+        name='state'
+        label='State/Province/Region'
         variant='outlined'
         onChange={handleChange}
       />
