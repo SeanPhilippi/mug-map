@@ -1,28 +1,39 @@
-import React from 'react';
+import { FC, useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import DetailsCard from './DetailsCard';
+import MarkerCard from './MarkerCard.tsx';
+import { useFetch } from '../hooks/useFetch.ts';
+import type { BusinessMarkerData } from '../types.d.ts';
 
-const Map: React.FC = () => {
+const Map: FC = () => {
   // latitude, longitude
   const position: [number, number] = [51.505, -0.09];
 
-  const mockBusinessData = {
+  const mockBusinessData: BusinessMarkerData = {
     name: 'Mock Business',
-    website: 'www.mockbusiness.com',
-    phone: '603-555-0123',
-    email: 'info@mockbusiness.com',
-    instagram: 'mockbusiness',
-    x: 'mockbusiness',
-    facebook: 'mockbusiness',
-    address: {
-      street1: '123 Main Street',
-      street2: 'Suite 456',
-      city: 'Manchester',
-      state: 'NH',
-      country: 'USA',
-      zip: '03101',
+    has_mugs: true,
+    wifi: true,
+    work_friendly: true,
+    coords: {
+      lat: 0,
+      lng: 0,
     },
   };
+
+  const [businesses, setBusinesses] = useState<BusinessMarkerData[]>([]);
+
+  const { data, error, query } = useFetch();
+
+  useEffect(() => {
+    const fetchBusinesses = async () => {
+      try {
+        const res = await query('businesses');
+        setBusinesses(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchBusinesses();
+  }, []);
 
   return (
     <MapContainer
@@ -36,7 +47,7 @@ const Map: React.FC = () => {
       />
       <Marker position={position}>
         <Popup>
-          <DetailsCard businessData={mockBusinessData} />
+          <MarkerCard businessMarkerData={mockBusinessData} />
         </Popup>
       </Marker>
     </MapContainer>

@@ -2,41 +2,22 @@ import { FC } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import type { BusinessMarkerData } from '../types.d.ts';
 
-type Address = {
-  street1: string;
-  street2: string;
-  country: string;
-  city: string;
-  state: string;
-  zip: string;
-};
-
-interface BusinessData {
-  name: string;
-  address: Address;
-  website: string;
-  phone: string;
-  email: string;
-  instagram: string;
-  x: string;
-  facebook: string;
+interface MarkerCardProps {
+  businessMarkerData: BusinessMarkerData;
 }
 
-interface DetailsCardProps {
-  businessData: BusinessData;
-}
-
-const DetailsCard: FC<DetailsCardProps> = ({
-  businessData: {
+const MarkerCard: FC<MarkerCardProps> = ({
+  businessMarkerData: {
     name,
-    address: { street1, street2, city, country, state, zip },
-    website,
-    phone,
-    email,
-    instagram,
-    x,
-    facebook,
+    // has_mugs,
+    // wifi,
+    // work_friendly,
+    // coords: {
+    //   lat,
+    //   lng,
+    // }
   },
 }) => {
   return (
@@ -48,7 +29,7 @@ const DetailsCard: FC<DetailsCardProps> = ({
         >
           {name}
         </Typography>
-        <Typography
+        {/* <Typography
           variant='body2'
           color='text.secondary'
           sx={{ lineHeight: '.5' }}
@@ -104,10 +85,10 @@ const DetailsCard: FC<DetailsCardProps> = ({
           color='text.secondary'
         >
           Facebook: <a href={`https://www.facebook.com/${facebook}`}>{facebook}</a>
-        </Typography>
+        </Typography> */}
       </CardContent>
     </Card>
   );
 };
 
-export default DetailsCard;
+export default MarkerCard;
