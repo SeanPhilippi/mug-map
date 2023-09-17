@@ -1,14 +1,11 @@
-export type Coords = {
-  lat: number;
-  lng: number;
-}
-
 export interface BusinessMarkerData {
+  id: number;
   name: string;
-  has_mugs: boolean;
+  offers_mugs: boolean;
   wifi: boolean;
   work_friendly: boolean;
-  coords: Coords;
+  lat: number;
+  lng: number;
 }
 
 export type Address = {

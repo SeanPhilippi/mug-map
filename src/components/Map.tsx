@@ -5,20 +5,6 @@ import { useFetch } from '../hooks/useFetch.ts';
 import type { BusinessMarkerData } from '../types.d.ts';
 
 const Map: FC = () => {
-  // latitude, longitude
-  const position: [number, number] = [51.505, -0.09];
-
-  const mockBusinessData: BusinessMarkerData = {
-    name: 'Mock Business',
-    has_mugs: true,
-    wifi: true,
-    work_friendly: true,
-    coords: {
-      lat: 0,
-      lng: 0,
-    },
-  };
-
   const [businesses, setBusinesses] = useState<BusinessMarkerData[]>([]);
 
   const { data, error, query } = useFetch();
@@ -26,8 +12,10 @@ const Map: FC = () => {
   useEffect(() => {
     const fetchBusinesses = async () => {
       try {
-        const res = await query('businesses');
-        setBusinesses(res.data);
+        const businessData = await query('businesses');
+        setBusinesses(businessData);
+        console.log('==data for /businesses GET', data)
+        console.log('==error for /businesses GET', error)
       } catch (err) {
         console.log(err);
       }
@@ -38,18 +26,20 @@ const Map: FC = () => {
   return (
     <MapContainer
       style={{ height: '80vh', width: '95vw' }}
-      center={[51.505, -0.09]}
-      zoom={13}
+      center={[0, 0]}
+      zoom={2}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
       />
-      <Marker position={position}>
-        <Popup>
-          <MarkerCard businessMarkerData={mockBusinessData} />
-        </Popup>
-      </Marker>
+      {businesses.map(business => business.lat && business.lng && (
+        <Marker key={business.id} position={[business.lat, business.lng]}>
+          <Popup>
+            <MarkerCard businessMarkerData={business} />
+          </Popup>
+        </Marker>
+      ))}
     </MapContainer>
   );
 };
