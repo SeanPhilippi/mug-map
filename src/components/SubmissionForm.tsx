@@ -21,11 +21,11 @@ const getCoordinatesFromOpenCage = async (address: string) => {
   const response: AxiosResponse = await axios.get(
     `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(address)}&key=${apiKey}`,
   );
-  const { lat, lng } = response.data.results[0].geometry;
-  return { lat, lng };
+  return response.data.results[0].geometry;
 };
 
 // ! ADD VALIDATION TO FORM FIELDS THAT NEED IT
+// ! phone
 const SubmissionForm = () => {
   const classes = useStyles();
 
@@ -68,11 +68,9 @@ const SubmissionForm = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // ! get coordinates using business address
-    // ! add coords to formFields
     // const address
     const address = `${formFields.address1} ${formFields.address2}, ${formFields.city}, ${formFields.state}, ${formFields.country}`;
-    const coords = getCoordinatesFromOpenCage(address);
+    const coords = await getCoordinatesFromOpenCage(address);
     const data = await query('businesses', { ...formFields, ...coords });
     console.log('==data', data);
   };
@@ -114,9 +112,11 @@ const SubmissionForm = () => {
       <TextField
         name='state'
         label='State/Province/Region'
+        required
         variant='outlined'
         onChange={handleChange}
       />
+      {/* consider making this a select element */}
       <TextField
         name='country'
         label='Country'
