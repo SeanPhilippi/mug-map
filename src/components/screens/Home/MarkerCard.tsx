@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import type { BusinessMarkerData } from '../types.d.ts';
+import type { BusinessMarkerData } from '../../../types.js';
 
 interface MarkerCardProps {
   businessMarkerData: BusinessMarkerData;
