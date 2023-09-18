@@ -7,17 +7,21 @@ import About from './components/screens/About/About';
 const App: React.FC = () => {
   return (
     <Router>
-      <div>
-        <Nav />
-        <Switch>
-          <Route exact path='/'>
-            <Home />
-          </Route>
-          <Route exact path='/about'>
-            <About />
-          </Route>
-        </Switch>
-      </div>
+      <Nav />
+      <Switch>
+        <Route
+          exact
+          path='/'
+        >
+          <Home />
+        </Route>
+        <Route
+          exact
+          path='/about'
+        >
+          <About />
+        </Route>
+      </Switch>
     </Router>
   );
 };
