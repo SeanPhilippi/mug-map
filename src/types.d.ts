@@ -29,6 +29,7 @@ export interface BusinessData {
   email: string;
   instagram: string;
   facebook: string;
+  x: string;
   website: string;
   offers_mugs: boolean;
   wifi: boolean;

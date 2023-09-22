@@ -1,10 +1,10 @@
 import { FC } from 'react';
-import Card from '@mui/material/Card';
-import Chip from '@mui/material/Chip';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
+import Card from '@material-ui/core/Card';
+import Chip from '@material-ui/core/Chip';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
 import { useHistory } from 'react-router-dom';
 import type { BusinessMarkerData } from '../../../types.js';
 
