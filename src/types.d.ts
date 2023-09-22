@@ -19,11 +19,22 @@ export type Address = {
 
 export interface BusinessData {
   name: string;
-  address: Address;
-  website: string;
+  address1: string;
+  address2: string;
+  city: string;
+  state: string;
+  country: string;
+  zip: string;
   phone: string;
   email: string;
   instagram: string;
-  x: string;
   facebook: string;
+  website: string;
+  offers_mugs: boolean;
+  wifi: boolean;
+  work_friendly: boolean;
+  description: string;
+  submitter_name: string;
+  submitter_email: string;
+  message_to_admin: string;
 }

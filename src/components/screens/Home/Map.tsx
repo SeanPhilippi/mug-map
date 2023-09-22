@@ -1,8 +1,8 @@
 import { FC, useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import MarkerCard from './MarkerCard.tsx';
-import { useFetch } from '../../../hooks/useFetch.js';
-import type { BusinessMarkerData } from '../../../types.js';
+import { useFetch } from '../../../hooks/useFetch.ts';
+import type { BusinessMarkerData } from '../../../types.d.ts';
 
 const Map: FC = () => {
   const [businesses, setBusinesses] = useState<BusinessMarkerData[]>([]);

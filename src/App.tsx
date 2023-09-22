@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './components/screens/Home/Home';
 import Nav from './components/shared/Nav';
 import About from './components/screens/About/About';
+import Details from './components/screens/Details/Details';
 
 const App: React.FC = () => {
   return (
@@ -20,6 +21,12 @@ const App: React.FC = () => {
           path='/about'
         >
           <About />
+        </Route>
+        <Route
+          exact
+          path='/business/:id'
+        >
+          <Details />
         </Route>
       </Switch>
     </Router>

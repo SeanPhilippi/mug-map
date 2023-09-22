@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import { useHistory } from 'react-router-dom';
 import type { BusinessMarkerData } from '../../../types.js';
 
 interface MarkerCardProps {
@@ -13,12 +14,19 @@ interface MarkerCardProps {
 
 const MarkerCard: FC<MarkerCardProps> = ({
   businessMarkerData: {
+    id,
     name,
     offers_mugs,
     wifi,
     work_friendly,
   },
 }) => {
+  const history = useHistory();
+
+  const handleDetailsClick = () => {
+    history.push(`/business/${id}`);
+  }
+
   return (
     <Card>
       <CardContent>
@@ -50,7 +58,7 @@ const MarkerCard: FC<MarkerCardProps> = ({
         </Box>
         <Button
           variant='outlined'
-          onClick={() => null}
+          onClick={handleDetailsClick}
         >
           View Details
         </Button>
