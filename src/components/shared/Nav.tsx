@@ -8,13 +8,25 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles({
   appBar: {
     marginBottom: '20px',
+    position: 'relative',
   },
   title: {
-    flexGrow: 1,
+    position: 'absolute',
+    left: '50%',
+    transform: 'translateX(-50%)',
     color: 'white',
   },
+  toolbar: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
   link: {
-    marginRight: '2rem',
+    'marginRight': '2rem',
+    'color': 'rgba(255, 255, 255, 0.8)',
+    'transition': 'color 0.3s ease',
+    '&:hover': {
+      color: 'rgba(255, 255, 255, 1)',
+    },
   },
 });
 
@@ -26,7 +38,7 @@ const Nav: React.FC = () => {
       position='static'
       className={classes.appBar}
     >
-      <Toolbar>
+      <Toolbar className={classes.toolbar}>
         <Typography
           variant='h6'
           className={classes.title}

@@ -12,14 +12,26 @@ const Map: FC = () => {
   useEffect(() => {
     const fetchBusinesses = async () => {
       try {
+        const data = await actualFetchBusinesses();
+        console.log('==2nd data for /businesses GET', data);
+        console.log('==error for /businesses GET', error)
+      } catch (err) {
+        console.log('fetchBusinesses error', err);
+      }
+    };
+
+    const actualFetchBusinesses = async () => {
+      try {
         const businessData = await query('businesses');
         setBusinesses(businessData);
-        console.log('==data for /businesses GET', data)
-        console.log('==error for /businesses GET', error)
+        console.log('==1st data for /businesses GET', data)
+        return businessData;
+        // console.log('==error for /businesses GET', error)
       } catch (err) {
         console.log(err);
       }
     };
+
     fetchBusinesses();
   }, []);
 
@@ -33,13 +45,20 @@ const Map: FC = () => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
       />
-      {businesses.map(business => business.lat && business.lng && (
-        <Marker key={business.id} position={[business.lat, business.lng]}>
-          <Popup>
-            <MarkerCard businessMarkerData={business} />
-          </Popup>
-        </Marker>
-      ))}
+      {businesses?.map(
+        business =>
+          business.lat &&
+          business.lng && (
+            <Marker
+              key={business.id}
+              position={[business.lat, business.lng]}
+            >
+              <Popup>
+                <MarkerCard businessMarkerData={business} />
+              </Popup>
+            </Marker>
+          ),
+      )}
     </MapContainer>
   );
 };
