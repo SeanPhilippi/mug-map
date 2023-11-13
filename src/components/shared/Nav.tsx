@@ -7,8 +7,9 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
   appBar: {
-    marginBottom: '20px',
-    position: 'relative',
+    padding: '10px',
+    position: 'sticky',
+    top: 0,
   },
   title: {
     position: 'absolute',

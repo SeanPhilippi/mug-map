@@ -9,12 +9,18 @@ import {
   Instagram as InstagramIcon,
   Language as WebsiteIcon,
 } from '@material-ui/icons';
+import { makeStyles } from '@material-ui/core/styles';
 import { useFetch } from '../../../hooks/useFetch.js';
 import type { BusinessData } from '../../../types.js';
 
 interface DetailsParams {
   id: string;
 }
+
+const useStyles = makeStyles({
+  detailsPage: {
+  }
+});
 
 const Details: FC = () => {
   const { id } = useParams<DetailsParams>();
@@ -42,11 +48,12 @@ const Details: FC = () => {
   console.log('==data for /businesses/:id GET', data);
   console.log('==error for /businesses/:id GET', error);
 
+  const classes = useStyles();
+
   return (
     business && (
-      <div>
+      <div className={classes.detailsPage}>
         <Typography variant='h4'>Business Details</Typography>
-        <Typography variant='h6'>ID: {id}</Typography>
 
         <Typography variant='h6'>Location:</Typography>
         <Typography>{business.name}</Typography>

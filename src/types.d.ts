@@ -4,6 +4,8 @@ export interface BusinessMarkerData {
   offers_mugs: boolean;
   wifi: boolean;
   work_friendly: boolean;
+  sufficient_outlets: boolean;
+  accepts_personal_mug: boolean;
   lat: number;
   lng: number;
 }

@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
+import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
+import Collapse from '@material-ui/core/Collapse';
 import Typography from '@material-ui/core/Typography';
 import { useFetch } from '../../../hooks/useFetch.js';
 import axios, { AxiosResponse } from 'axios';
@@ -53,9 +58,10 @@ const SubmissionForm = () => {
     x: '',
     website: '',
     // checkboxes
-    offers_mugs: false,
-    wifi: false,
-    work_friendly: false,
+    offers_mugs: null,
+    wifi: null,
+    work_friendly: null,
+    sufficient_outlets: null,
     // text fields
     description: '',
     submitter_name: '',
@@ -64,18 +70,31 @@ const SubmissionForm = () => {
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('==name', e.target.name);
+    console.log('==checked', e.target.checked);
+    console.log('==value', e.target.value);
     setFormFields({
       ...formFields,
-      [e.target.name]: e.target.type === 'checkbox' ? e.target.checked : e.target.value,
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // const address
     const address = `${formFields.address1} ${formFields.address2}, ${formFields.city}, ${formFields.state}, ${formFields.country}`;
     const coords = await getCoordinatesFromOpenCage(address);
-    const data = await query('businesses', { ...formFields, ...coords });
+    const additionalInfoMap = {
+      null: null,
+      No: false,
+      Yes: true,
+    };
+    const additionalInfo = {
+      offers_mugs: additionalInfoMap[formFields.offers_mugs],
+      wifi: additionalInfoMap[formFields.wifi],
+      work_friendly: additionalInfoMap[formFields.work_friendly],
+      sufficient_outlets: additionalInfoMap[formFields.sufficient_outlets],
+    };
+    const data = await query('businesses', { ...formFields, ...coords, ...additionalInfo });
     console.log('==data', data);
   };
 
@@ -196,24 +215,91 @@ const SubmissionForm = () => {
       >
         Additional Information
       </Typography>
-      <FormControlLabel
+
+      <FormControl>
+        <InputLabel>Offers Mugs?</InputLabel>
+        <Select
+          value={formFields.offers_mugs}
+          onChange={handleChange}
+          name='offers_mugs'
+        >
+          <MenuItem value='Not sure'>Not sure</MenuItem>
+          <MenuItem value='Yes'>Yes</MenuItem>
+          <MenuItem value='No'>No</MenuItem>
+        </Select>
+      </FormControl>
+
+      <FormControl>
+        <InputLabel>Wifi?</InputLabel>
+        <Select
+          value={formFields.wifi}
+          onChange={handleChange}
+          name='wifi'
+        >
+          <MenuItem value='Not sure'>Not sure</MenuItem>
+          <MenuItem value='Yes'>Yes</MenuItem>
+          <MenuItem value='No'>No</MenuItem>
+        </Select>
+      </FormControl>
+
+      <FormControl>
+        <InputLabel>Work-friendly?</InputLabel>
+        <Select
+          value={formFields.work_friendly}
+          onChange={handleChange}
+          name='work_friendly'
+        >
+          <MenuItem value='Not sure'>Not sure</MenuItem>
+          <MenuItem value='Yes'>Yes</MenuItem>
+          <MenuItem value='No'>No</MenuItem>
+        </Select>
+      </FormControl>
+
+      <FormControl>
+        <InputLabel>Sufficient Outlets?</InputLabel>
+        <Select
+          value={formFields.sufficient_outlets}
+          onChange={handleChange}
+          name='sufficient_outlets'
+        >
+          <MenuItem value='Not sure'>Not sure</MenuItem>
+          <MenuItem value='Yes'>Yes</MenuItem>
+          <MenuItem value='No'>No</MenuItem>
+        </Select>
+      </FormControl>
+      {/* previous inputs */}
+      {/* <FormControlLabel
         control={<Checkbox />}
         name='offers'
-        label='Offers Mugs'
+        label='Offers Mugs?'
         onChange={handleChange}
       />
+      <Collapse in={formFields.offers_mugs === false}>
+        <FormControlLabel
+          control={<Checkbox />}
+          name='accepts_personal_mug'
+          label='Accepts Personal Mug?'
+          onChange={handleChange}
+        />
+      </Collapse>
       <FormControlLabel
         control={<Checkbox />}
         name='wifi'
-        label='WiFi'
+        label='WiFi?'
         onChange={handleChange}
       />
       <FormControlLabel
         control={<Checkbox />}
         name='work_friendly'
-        label='Work-friendly'
+        label='Work-friendly?'
         onChange={handleChange}
       />
+      <FormControlLabel
+        control={<Checkbox />}
+        name='sufficient_outlets'
+        label='Sufficient Outlets'
+        onChange={handleChange}
+      /> */}
       <TextField
         name='description'
         label='Description'

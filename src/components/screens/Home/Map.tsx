@@ -37,7 +37,8 @@ const Map: FC = () => {
 
   return (
     <MapContainer
-      style={{ height: '80vh', width: '95vw' }}
+      // MapContainer requires a fixed height and width to render properly
+      style={{ height: '82vh', width: '100vw' }}
       center={[0, 0]}
       zoom={2}
     >

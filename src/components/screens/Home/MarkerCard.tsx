@@ -13,19 +13,13 @@ interface MarkerCardProps {
 }
 
 const MarkerCard: FC<MarkerCardProps> = ({
-  businessMarkerData: {
-    id,
-    name,
-    offers_mugs,
-    wifi,
-    work_friendly,
-  },
+  businessMarkerData: { id, name, offers_mugs, wifi, work_friendly, sufficient_outlets, accepts_personal_mug },
 }) => {
   const history = useHistory();
 
   const handleDetailsClick = () => {
     history.push(`/business/${id}`);
-  }
+  };
 
   return (
     <Card>
@@ -36,23 +30,42 @@ const MarkerCard: FC<MarkerCardProps> = ({
         >
           {name}
         </Typography>
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '8px', mb: '8px' }}>
+        <Box style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '8px' }}>
+          {/* offers_mugs could be n/a?  */}
           {offers_mugs && (
             <Chip
               label='Offers Mugs'
-              sx={{ borderRadius: '8px' }}
+              style={{ borderRadius: '8px' }}
+            />
+          )}
+          {!offers_mugs && (
+            <Chip
+              label='No Mugs'
+              style={{ borderRadius: '8px' }}
+            />
+          )}
+          {accepts_personal_mug && (
+            <Chip
+              label='Accepts Personal Mug'
+              style={{ borderRadius: '8px' }}
             />
           )}
           {wifi && (
             <Chip
               label='Wifi'
-              sx={{ borderRadius: '8px' }}
+              style={{ borderRadius: '8px' }}
             />
           )}
           {work_friendly && (
             <Chip
               label='Work-friendly'
-              sx={{ borderRadius: '8px' }}
+              style={{ borderRadius: '8px' }}
+            />
+          )}
+          {sufficient_outlets && (
+            <Chip
+              label='Sufficient Outlets'
+              style={{ borderRadius: '8px' }}
             />
           )}
         </Box>
