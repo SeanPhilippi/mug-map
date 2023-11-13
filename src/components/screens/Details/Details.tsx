@@ -109,9 +109,11 @@ const Details: FC = () => {
         )}
 
         <Typography variant='h6'>Features:</Typography>
-        <Typography>Offers Mugs: {business.offers_mugs ? 'Yes' : 'No'}</Typography>
-        <Typography>Wifi: {business.wifi ? 'Yes' : 'No'}</Typography>
-        <Typography>Work Friendly: {business.work_friendly ? 'Yes' : 'No'}</Typography>
+        <Typography>Offers Mugs: {business.offers_mugs === null ? 'N/A' : (business.offers_mugs ? 'Yes' : 'No')}</Typography>
+        <Typography>Accepts Personal Mug: {business.accepts_personal_mug === null ? 'N/A' : (business.accepts_personal_mug ? 'Yes' : 'No')}</Typography>
+        <Typography>Wifi: {business.wifi === null ? 'N/A' : (business.wifi ? 'Yes' : 'No')}</Typography>
+        <Typography>Work Friendly: {business.work_friendly === null ? 'N/A' : (business.work_friendly ? 'Yes' : 'No')}</Typography>
+        <Typography>Sufficient Outlets: {business.sufficient_outlets === null ? 'N/A' : (business.sufficient_outlets ? 'Yes' : 'No')}</Typography>
 
         <Typography variant='h6'>Description:</Typography>
         <Typography>{business?.description}</Typography>

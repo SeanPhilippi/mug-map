@@ -34,8 +34,10 @@ export interface BusinessData {
   x: string;
   website: string;
   offers_mugs: boolean;
+  accepts_personal_mug: boolean;
   wifi: boolean;
   work_friendly: boolean;
+  sufficient_outlets: boolean;
   description: string;
   submitter_name: string;
   submitter_email: string;

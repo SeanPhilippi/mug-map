@@ -59,7 +59,7 @@ const Home = () => {
           </div>
         </DialogTitle>
         <DialogContent>
-          <SubmissionForm />
+          <SubmissionForm handleClose={handleClose} />
         </DialogContent>
       </Dialog>
     </>

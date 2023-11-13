@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import Checkbox from '@material-ui/core/Checkbox';
+// import Checkbox from '@material-ui/core/Checkbox';
 import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+// import FormControlLabel from '@material-ui/core/FormControlLabel';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
-import Collapse from '@material-ui/core/Collapse';
+// import Collapse from '@material-ui/core/Collapse';
 import Typography from '@material-ui/core/Typography';
 import { useFetch } from '../../../hooks/useFetch.js';
 import axios, { AxiosResponse } from 'axios';
@@ -33,9 +33,13 @@ const getCoordinatesFromOpenCage = async (address: string) => {
   return response.data.results[0].geometry;
 };
 
+interface SubmissionFormProps {
+  handleClose: () => void;
+}
+
 // ! ADD VALIDATION TO FORM FIELDS THAT NEED IT
 // ! phone
-const SubmissionForm = () => {
+const SubmissionForm: FC<SubmissionFormProps> = ({ handleClose }) => {
   const classes = useStyles();
 
   const { data, error, query } = useFetch();
@@ -58,10 +62,11 @@ const SubmissionForm = () => {
     x: '',
     website: '',
     // checkboxes
-    offers_mugs: null,
-    wifi: null,
-    work_friendly: null,
-    sufficient_outlets: null,
+    offers_mugs: 'notSure',
+    accepts_personal_mug: 'notSure',
+    wifi: 'notSure',
+    work_friendly: 'notSure',
+    sufficient_outlets: 'notSure',
     // text fields
     description: '',
     submitter_name: '',
@@ -83,19 +88,24 @@ const SubmissionForm = () => {
     e.preventDefault();
     const address = `${formFields.address1} ${formFields.address2}, ${formFields.city}, ${formFields.state}, ${formFields.country}`;
     const coords = await getCoordinatesFromOpenCage(address);
+    console.log('==formFields', formFields)
+    console.log('==coords', coords)
     const additionalInfoMap = {
-      null: null,
-      No: false,
-      Yes: true,
+      notSure: null,
+      no: false,
+      yes: true,
     };
     const additionalInfo = {
       offers_mugs: additionalInfoMap[formFields.offers_mugs],
+      accepts_personal_mug: additionalInfoMap[formFields.accepts_personal_mug],
       wifi: additionalInfoMap[formFields.wifi],
       work_friendly: additionalInfoMap[formFields.work_friendly],
       sufficient_outlets: additionalInfoMap[formFields.sufficient_outlets],
     };
+    console.log('==additionalInfo', additionalInfo)
     const data = await query('businesses', { ...formFields, ...coords, ...additionalInfo });
     console.log('==data', data);
+    handleClose();
   };
 
   return (
@@ -155,6 +165,7 @@ const SubmissionForm = () => {
         type='number'
         onChange={handleChange}
       />
+      {/* ! add auto-formatting to d-ddd-ddd-dddd format and only allow number input */}
       <TextField
         name='phone'
         label='Phone'
@@ -223,9 +234,22 @@ const SubmissionForm = () => {
           onChange={handleChange}
           name='offers_mugs'
         >
-          <MenuItem value='Not sure'>Not sure</MenuItem>
-          <MenuItem value='Yes'>Yes</MenuItem>
-          <MenuItem value='No'>No</MenuItem>
+          <MenuItem value='notSure'>Not sure</MenuItem>
+          <MenuItem value='yes'>Yes</MenuItem>
+          <MenuItem value='no'>No</MenuItem>
+        </Select>
+      </FormControl>
+
+      <FormControl>
+        <InputLabel>Accepts Personal Mug?</InputLabel>
+        <Select
+          value={formFields.accepts_personal_mug}
+          onChange={handleChange}
+          name='accepts_personal_mug'
+        >
+          <MenuItem value='notSure'>Not sure</MenuItem>
+          <MenuItem value='yes'>Yes</MenuItem>
+          <MenuItem value='no'>No</MenuItem>
         </Select>
       </FormControl>
 
@@ -236,9 +260,9 @@ const SubmissionForm = () => {
           onChange={handleChange}
           name='wifi'
         >
-          <MenuItem value='Not sure'>Not sure</MenuItem>
-          <MenuItem value='Yes'>Yes</MenuItem>
-          <MenuItem value='No'>No</MenuItem>
+          <MenuItem value='notSure'>Not sure</MenuItem>
+          <MenuItem value='yes'>Yes</MenuItem>
+          <MenuItem value='no'>No</MenuItem>
         </Select>
       </FormControl>
 
@@ -249,9 +273,9 @@ const SubmissionForm = () => {
           onChange={handleChange}
           name='work_friendly'
         >
-          <MenuItem value='Not sure'>Not sure</MenuItem>
-          <MenuItem value='Yes'>Yes</MenuItem>
-          <MenuItem value='No'>No</MenuItem>
+          <MenuItem value='notSure'>Not sure</MenuItem>
+          <MenuItem value='yes'>Yes</MenuItem>
+          <MenuItem value='no'>No</MenuItem>
         </Select>
       </FormControl>
 
@@ -262,9 +286,9 @@ const SubmissionForm = () => {
           onChange={handleChange}
           name='sufficient_outlets'
         >
-          <MenuItem value='Not sure'>Not sure</MenuItem>
-          <MenuItem value='Yes'>Yes</MenuItem>
-          <MenuItem value='No'>No</MenuItem>
+          <MenuItem value='notSure'>Not sure</MenuItem>
+          <MenuItem value='yes'>Yes</MenuItem>
+          <MenuItem value='no'>No</MenuItem>
         </Select>
       </FormControl>
       {/* previous inputs */}

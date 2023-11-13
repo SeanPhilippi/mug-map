@@ -38,12 +38,6 @@ const MarkerCard: FC<MarkerCardProps> = ({
               style={{ borderRadius: '8px' }}
             />
           )}
-          {!offers_mugs && (
-            <Chip
-              label='No Mugs'
-              style={{ borderRadius: '8px' }}
-            />
-          )}
           {accepts_personal_mug && (
             <Chip
               label='Accepts Personal Mug'
