@@ -1,14 +1,11 @@
 import React, { useState, FC } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-// import Checkbox from '@material-ui/core/Checkbox';
 import FormControl from '@material-ui/core/FormControl';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
-// import Collapse from '@material-ui/core/Collapse';
 import Typography from '@material-ui/core/Typography';
 import { useFetch } from '../../../hooks/useFetch.js';
 import axios, { AxiosResponse } from 'axios';
@@ -88,8 +85,8 @@ const SubmissionForm: FC<SubmissionFormProps> = ({ handleClose }) => {
     e.preventDefault();
     const address = `${formFields.address1} ${formFields.address2}, ${formFields.city}, ${formFields.state}, ${formFields.country}`;
     const coords = await getCoordinatesFromOpenCage(address);
-    console.log('==formFields', formFields)
-    console.log('==coords', coords)
+    console.log('==formFields', formFields);
+    console.log('==coords', coords);
     const additionalInfoMap = {
       notSure: null,
       no: false,
@@ -102,7 +99,7 @@ const SubmissionForm: FC<SubmissionFormProps> = ({ handleClose }) => {
       work_friendly: additionalInfoMap[formFields.work_friendly],
       sufficient_outlets: additionalInfoMap[formFields.sufficient_outlets],
     };
-    console.log('==additionalInfo', additionalInfo)
+    console.log('==additionalInfo', additionalInfo);
     const data = await query('businesses', { ...formFields, ...coords, ...additionalInfo });
     console.log('==data', data);
     handleClose();
@@ -226,7 +223,6 @@ const SubmissionForm: FC<SubmissionFormProps> = ({ handleClose }) => {
       >
         Additional Information
       </Typography>
-
       <FormControl>
         <InputLabel>Offers Mugs?</InputLabel>
         <Select
@@ -239,7 +235,6 @@ const SubmissionForm: FC<SubmissionFormProps> = ({ handleClose }) => {
           <MenuItem value='no'>No</MenuItem>
         </Select>
       </FormControl>
-
       <FormControl>
         <InputLabel>Accepts Personal Mug?</InputLabel>
         <Select
@@ -252,7 +247,6 @@ const SubmissionForm: FC<SubmissionFormProps> = ({ handleClose }) => {
           <MenuItem value='no'>No</MenuItem>
         </Select>
       </FormControl>
-
       <FormControl>
         <InputLabel>Wifi?</InputLabel>
         <Select
@@ -265,7 +259,6 @@ const SubmissionForm: FC<SubmissionFormProps> = ({ handleClose }) => {
           <MenuItem value='no'>No</MenuItem>
         </Select>
       </FormControl>
-
       <FormControl>
         <InputLabel>Work-friendly?</InputLabel>
         <Select
@@ -278,7 +271,6 @@ const SubmissionForm: FC<SubmissionFormProps> = ({ handleClose }) => {
           <MenuItem value='no'>No</MenuItem>
         </Select>
       </FormControl>
-
       <FormControl>
         <InputLabel>Sufficient Outlets?</InputLabel>
         <Select
@@ -291,39 +283,6 @@ const SubmissionForm: FC<SubmissionFormProps> = ({ handleClose }) => {
           <MenuItem value='no'>No</MenuItem>
         </Select>
       </FormControl>
-      {/* previous inputs */}
-      {/* <FormControlLabel
-        control={<Checkbox />}
-        name='offers'
-        label='Offers Mugs?'
-        onChange={handleChange}
-      />
-      <Collapse in={formFields.offers_mugs === false}>
-        <FormControlLabel
-          control={<Checkbox />}
-          name='accepts_personal_mug'
-          label='Accepts Personal Mug?'
-          onChange={handleChange}
-        />
-      </Collapse>
-      <FormControlLabel
-        control={<Checkbox />}
-        name='wifi'
-        label='WiFi?'
-        onChange={handleChange}
-      />
-      <FormControlLabel
-        control={<Checkbox />}
-        name='work_friendly'
-        label='Work-friendly?'
-        onChange={handleChange}
-      />
-      <FormControlLabel
-        control={<Checkbox />}
-        name='sufficient_outlets'
-        label='Sufficient Outlets'
-        onChange={handleChange}
-      /> */}
       <TextField
         name='description'
         label='Description'
