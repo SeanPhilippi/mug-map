@@ -22,7 +22,7 @@ const Map: FC = () => {
 
     const actualFetchBusinesses = async () => {
       try {
-        const businessData = await query('businesses');
+        const businessData = await query('businesses', 'get');
         setBusinesses(businessData);
         console.log('==1st data for /businesses GET', data)
         return businessData;

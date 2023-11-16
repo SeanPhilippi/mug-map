@@ -46,9 +46,10 @@ const Details: FC = () => {
   const { data, error, query } = useFetch();
 
   useEffect(() => {
+    // fetch business data using param id upon mount
     const fetchBusinessData = async () => {
       try {
-        const businessData = await query(`/business/${id}`);
+        const businessData = await query(`/business/${id}`, 'get');
         setBusinessData(businessData);
       } catch (err) {
         console.log(err);
@@ -195,7 +196,7 @@ const Details: FC = () => {
                   </div>
                 </DialogTitle>
                 <DialogContent>
-                  <UpdateForm handleClose={handleCloseUpdateForm} />
+                  <UpdateForm business={business} businessId={id} handleClose={handleCloseUpdateForm} />
                 </DialogContent>
               </Dialog>
             </Grid>

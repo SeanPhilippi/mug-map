@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { useFetch } from '../../../hooks/useFetch.js';
 import axios, { AxiosResponse } from 'axios';
+import type { BusinessData } from '../../../types.js';
 
 const useStyles = makeStyles(theme => ({
   form: {
@@ -31,12 +32,14 @@ const getCoordinatesFromOpenCage = async (address: string) => {
 };
 
 interface UpdateFormProps {
+  business: BusinessData;
+  businessId: number;
   handleClose: () => void;
 }
 
 // ! ADD VALIDATION TO FORM FIELDS THAT NEED IT
 // ! phone
-const UpdateForm: FC<UpdateFormProps> = ({ handleClose }) => {
+const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose }) => {
   const classes = useStyles();
 
   const { data, error, query } = useFetch();
@@ -100,7 +103,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ handleClose }) => {
       sufficient_outlets: additionalInfoMap[formFields.sufficient_outlets],
     };
     console.log('==additionalInfo', additionalInfo);
-    const data = await query('businesses', { ...formFields, ...coords, ...additionalInfo });
+    const data = await query(`business/${businessId}`, 'update', { ...formFields, ...coords, ...additionalInfo });
     console.log('==data', data);
     handleClose();
   };
@@ -114,6 +117,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ handleClose }) => {
       <Typography variant='h6'>Business Information</Typography>
       <TextField
         name='name'
+        value={business.name}
         label='Business Name'
         variant='outlined'
         required
@@ -121,6 +125,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ handleClose }) => {
       />
       <TextField
         name='address1'
+        value={business.address1}
         label='Address (Street 1)'
         variant='outlined'
         required
@@ -128,12 +133,14 @@ const UpdateForm: FC<UpdateFormProps> = ({ handleClose }) => {
       />
       <TextField
         name='address2'
+        value={business.address2}
         label='Address (Street 2)'
         variant='outlined'
         onChange={handleChange}
       />
       <TextField
         name='city'
+        value={business.city}
         label='City'
         required
         variant='outlined'
@@ -141,6 +148,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ handleClose }) => {
       />
       <TextField
         name='state'
+        value={business.state}
         label='State/Province/Region'
         required
         variant='outlined'
@@ -149,6 +157,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ handleClose }) => {
       {/* consider making this a select element */}
       <TextField
         name='country'
+        value={business.country}
         label='Country'
         variant='outlined'
         required
@@ -156,6 +165,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ handleClose }) => {
       />
       <TextField
         name='zip'
+        value={business.zip}
         label='Zip'
         variant='outlined'
         required
@@ -165,6 +175,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ handleClose }) => {
       {/* ! add auto-formatting to d-ddd-ddd-dddd format and only allow number input */}
       <TextField
         name='phone'
+        value={business.phone}
         label='Phone'
         variant='outlined'
         type='number'
@@ -172,6 +183,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ handleClose }) => {
       />
       <TextField
         name='email'
+        value={business.email}
         label='Email'
         variant='outlined'
         type='email'
@@ -185,6 +197,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ handleClose }) => {
       </Typography>
       <TextField
         name='instagram'
+        value={business.instagram}
         label='Instagram'
         variant='outlined'
         placeholder='@'
@@ -192,6 +205,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ handleClose }) => {
       />
       <TextField
         name='facebook'
+        value={business.facebook}
         label='Facebook'
         variant='outlined'
         placeholder='facebook.com/'
@@ -199,6 +213,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ handleClose }) => {
       />
       <TextField
         name='x'
+        value={business.x}
         label='X'
         variant='outlined'
         placeholder='@'
@@ -206,6 +221,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ handleClose }) => {
       />
       {/* <TextField
         name='youtube'
+        value={business.youtube}
         label='Youtube'
         variant='outlined'
         placeholder='youtube.com/
@@ -213,6 +229,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ handleClose }) => {
       /> */}
       <TextField
         name='website'
+        value={business.website}
         label='Website'
         variant='outlined'
         onChange={handleChange}
@@ -285,6 +302,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ handleClose }) => {
       </FormControl>
       <TextField
         name='description'
+        value={business.description}
         label='Description'
         variant='outlined'
         multiline
@@ -294,6 +312,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ handleClose }) => {
       <Typography variant='h6'>Submitter Information</Typography>
       <TextField
         name='submitter_name'
+        value={business.submitter_name}
         label='Submitter Name'
         variant='outlined'
         required
@@ -301,6 +320,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ handleClose }) => {
       />
       <TextField
         name='submitter_email'
+        value={business.submitter_email}
         label='Submitter Email'
         variant='outlined'
         type='email'
@@ -309,6 +329,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ handleClose }) => {
       />
       <TextField
         name='message_to_admin'
+        value={business.message_to_admin}
         label='Message to Admin'
         variant='outlined'
         multiline
@@ -328,4 +349,3 @@ const UpdateForm: FC<UpdateFormProps> = ({ handleClose }) => {
 };
 
 export default UpdateForm;
-

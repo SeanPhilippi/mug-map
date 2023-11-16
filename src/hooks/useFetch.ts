@@ -6,12 +6,15 @@ export const useFetch = () => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
-  const query = async (route: string, body?: Record<string, unknown>) => {
+  // ! give query params type
+  const query = async (route: string, method: string, body?: Record<string, unknown>) => {
     try {
       let response: AxiosResponse;
-      if (body) {
+      if (method === 'save') {
         response = await axios.post(`${API_URL}/${route}`, body);
-      } else {
+      } else if (method === 'update') {
+        response = await axios.put(`${API_URL}/${route}`, body);
+      } else if (method === 'get') {
         response = await axios.get(`${API_URL}/${route}`);
       }
       setData(response.data);
