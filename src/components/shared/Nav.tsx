@@ -4,6 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import { useHistory, useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles({
   appBar: {
@@ -12,10 +13,10 @@ const useStyles = makeStyles({
     top: 0,
   },
   title: {
-    position: 'absolute',
-    left: '50%',
-    transform: 'translateX(-50%)',
-    color: 'white',
+    'position': 'absolute',
+    'left': '50%',
+    'transform': 'translateX(-50%)',
+    'color': 'white',
   },
   toolbar: {
     display: 'flex',
@@ -33,6 +34,18 @@ const useStyles = makeStyles({
 
 const Nav: React.FC = () => {
   const classes = useStyles();
+  const history = useHistory();
+  const location = useLocation();
+
+  const navigateHome = () => {
+    if (location.pathname !== '/') {
+      history.push('/');
+    }
+  }
+
+  const cursorStyle = {
+    cursor: location.pathname === '/' ? 'default' : 'pointer',
+  }
 
   return (
     <AppBar
@@ -43,6 +56,8 @@ const Nav: React.FC = () => {
         <Typography
           variant='h6'
           className={classes.title}
+          style={cursorStyle}
+          onClick={navigateHome}
         >
           Mug Map
         </Typography>
