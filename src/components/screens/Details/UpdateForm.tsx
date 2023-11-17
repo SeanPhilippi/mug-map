@@ -48,25 +48,25 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose }) 
 
   const [formFields, setFormFields] = useState({
     // text fields
-    name: '',
-    address1: '',
-    address2: '',
-    city: '',
-    state: '',
-    country: '',
-    zip: '',
-    phone: '',
-    email: '',
-    instagram: '',
-    facebook: '',
-    x: '',
-    website: '',
-    // checkboxes
-    offers_mugs: 'notSure',
-    accepts_personal_mug: 'notSure',
-    wifi: 'notSure',
-    work_friendly: 'notSure',
-    sufficient_outlets: 'notSure',
+    name: business.name,
+    address1: business.address1,
+    address2: business.address2,
+    city: business.city,
+    state: business.state,
+    country: business.country,
+    zip: business.zip,
+    phone: business.phone,
+    email: business.email,
+    instagram: business.instagram,
+    facebook: business.facebook,
+    x: business.x,
+    website: business.website,
+    // selects
+    offers_mugs: business.offers_mugs ?? 'notSure',
+    accepts_personal_mug: business.accepts_personal_mug ?? 'notSure',
+    wifi: business.wifi ?? 'notSure',
+    work_friendly: business.work_friendly ?? 'notSure',
+    sufficient_outlets: business.sufficient_outlets ?? 'notSure',
     // text fields
     description: '',
     submitter_name: '',
@@ -103,7 +103,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose }) 
       sufficient_outlets: additionalInfoMap[formFields.sufficient_outlets],
     };
     console.log('==additionalInfo', additionalInfo);
-    const data = await query(`business/${businessId}`, 'update', { ...formFields, ...coords, ...additionalInfo });
+    const data = await query(`businesses/${businessId}`, 'update', { ...formFields, ...coords, ...additionalInfo });
     console.log('==data', data);
     handleClose();
   };
@@ -117,7 +117,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose }) 
       <Typography variant='h6'>Business Information</Typography>
       <TextField
         name='name'
-        value={business.name}
+        value={formFields.name}
         label='Business Name'
         variant='outlined'
         required
@@ -125,7 +125,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose }) 
       />
       <TextField
         name='address1'
-        value={business.address1}
+        value={formFields.address1}
         label='Address (Street 1)'
         variant='outlined'
         required
@@ -133,14 +133,14 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose }) 
       />
       <TextField
         name='address2'
-        value={business.address2}
+        value={formFields.address2}
         label='Address (Street 2)'
         variant='outlined'
         onChange={handleChange}
       />
       <TextField
         name='city'
-        value={business.city}
+        value={formFields.city}
         label='City'
         required
         variant='outlined'
@@ -148,7 +148,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose }) 
       />
       <TextField
         name='state'
-        value={business.state}
+        value={formFields.state}
         label='State/Province/Region'
         required
         variant='outlined'
@@ -157,7 +157,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose }) 
       {/* consider making this a select element */}
       <TextField
         name='country'
-        value={business.country}
+        value={formFields.country}
         label='Country'
         variant='outlined'
         required
@@ -165,7 +165,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose }) 
       />
       <TextField
         name='zip'
-        value={business.zip}
+        value={formFields.zip}
         label='Zip'
         variant='outlined'
         required
@@ -175,7 +175,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose }) 
       {/* ! add auto-formatting to d-ddd-ddd-dddd format and only allow number input */}
       <TextField
         name='phone'
-        value={business.phone}
+        value={formFields.phone}
         label='Phone'
         variant='outlined'
         type='number'
@@ -183,7 +183,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose }) 
       />
       <TextField
         name='email'
-        value={business.email}
+        value={formFields.email}
         label='Email'
         variant='outlined'
         type='email'
@@ -197,7 +197,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose }) 
       </Typography>
       <TextField
         name='instagram'
-        value={business.instagram}
+        value={formFields.instagram}
         label='Instagram'
         variant='outlined'
         placeholder='@'
@@ -205,7 +205,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose }) 
       />
       <TextField
         name='facebook'
-        value={business.facebook}
+        value={formFields.facebook}
         label='Facebook'
         variant='outlined'
         placeholder='facebook.com/'
@@ -213,7 +213,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose }) 
       />
       <TextField
         name='x'
-        value={business.x}
+        value={formFields.x}
         label='X'
         variant='outlined'
         placeholder='@'
@@ -221,7 +221,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose }) 
       />
       {/* <TextField
         name='youtube'
-        value={business.youtube}
+        value={formFields.youtube}
         label='Youtube'
         variant='outlined'
         placeholder='youtube.com/
@@ -229,7 +229,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose }) 
       /> */}
       <TextField
         name='website'
-        value={business.website}
+        value={formFields.website}
         label='Website'
         variant='outlined'
         onChange={handleChange}
@@ -240,6 +240,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose }) 
       >
         Additional Information
       </Typography>
+      {/* maybe incorporate voting up / down thumbs here */}
       <FormControl>
         <InputLabel>Offers Mugs?</InputLabel>
         <Select
@@ -302,7 +303,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose }) 
       </FormControl>
       <TextField
         name='description'
-        value={business.description}
+        value={formFields.description}
         label='Description'
         variant='outlined'
         multiline
@@ -310,9 +311,10 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose }) 
         onChange={handleChange}
       />
       <Typography variant='h6'>Submitter Information</Typography>
+      {/* this info does not get a default value from previous data for obvious reasons */}
+      {/* ! style required feields using red */}
       <TextField
         name='submitter_name'
-        value={business.submitter_name}
         label='Submitter Name'
         variant='outlined'
         required
@@ -320,7 +322,6 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose }) 
       />
       <TextField
         name='submitter_email'
-        value={business.submitter_email}
         label='Submitter Email'
         variant='outlined'
         type='email'
@@ -329,7 +330,6 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose }) 
       />
       <TextField
         name='message_to_admin'
-        value={business.message_to_admin}
         label='Message to Admin'
         variant='outlined'
         multiline

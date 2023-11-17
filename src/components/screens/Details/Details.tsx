@@ -49,7 +49,7 @@ const Details: FC = () => {
     // fetch business data using param id upon mount
     const fetchBusinessData = async () => {
       try {
-        const businessData = await query(`/business/${id}`, 'get');
+        const businessData = await query(`/businesses/${id}`, 'get');
         setBusinessData(businessData);
       } catch (err) {
         console.log(err);

@@ -58,7 +58,7 @@ const SubmissionForm: FC<SubmissionFormProps> = ({ handleClose }) => {
     facebook: '',
     x: '',
     website: '',
-    // checkboxes
+    // selects
     offers_mugs: 'notSure',
     accepts_personal_mug: 'notSure',
     wifi: 'notSure',
