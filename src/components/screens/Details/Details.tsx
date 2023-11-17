@@ -45,16 +45,17 @@ const Details: FC = () => {
 
   const { data, error, query } = useFetch();
 
+  const fetchBusinessData = async () => {
+    try {
+      const businessData = await query(`/businesses/${id}`, 'get');
+      setBusinessData(businessData);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     // fetch business data using param id upon mount
-    const fetchBusinessData = async () => {
-      try {
-        const businessData = await query(`/businesses/${id}`, 'get');
-        setBusinessData(businessData);
-      } catch (err) {
-        console.log(err);
-      }
-    };
     fetchBusinessData();
   }, []);
 
@@ -196,7 +197,12 @@ const Details: FC = () => {
                   </div>
                 </DialogTitle>
                 <DialogContent>
-                  <UpdateForm business={business} businessId={id} handleClose={handleCloseUpdateForm} />
+                  <UpdateForm
+                    business={business}
+                    businessId={id}
+                    handleClose={handleCloseUpdateForm}
+                    fetchBusinessData={fetchBusinessData}
+                  />
                 </DialogContent>
               </Dialog>
             </Grid>

@@ -35,11 +35,12 @@ interface UpdateFormProps {
   business: BusinessData;
   businessId: number;
   handleClose: () => void;
+  fetchBusinessData: () => void;
 }
 
 // ! ADD VALIDATION TO FORM FIELDS THAT NEED IT
 // ! phone
-const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose }) => {
+const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fetchBusinessData }) => {
   const classes = useStyles();
 
   const { data, error, query } = useFetch();
@@ -62,13 +63,15 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose }) 
     x: business.x,
     website: business.website,
     // selects
-    offers_mugs: business.offers_mugs ?? 'notSure',
-    accepts_personal_mug: business.accepts_personal_mug ?? 'notSure',
-    wifi: business.wifi ?? 'notSure',
-    work_friendly: business.work_friendly ?? 'notSure',
-    sufficient_outlets: business.sufficient_outlets ?? 'notSure',
+    offers_mugs: business.offers_mugs !== null ? (business.offers_mugs.toString()) : 'notSure',
+    accepts_personal_mug: business.accepts_personal_mug !== null ? (business.accepts_personal_mug.toString()) : 'notSure',
+    wifi: business.wifi !== null ? (business.wifi.toString()) : 'notSure',
+    work_friendly: business.work_friendly !== null ? (business.work_friendly.toString()) : 'notSure',
+    sufficient_outlets: business.sufficient_outlets !== null ? (business.sufficient_outlets.toString()) : 'notSure',
     // text fields
-    description: '',
+    description: business.description,
+    // not populated w previous data, because user does not need to know past values and
+    // needs to enter their own details
     submitter_name: '',
     submitter_email: '',
     message_to_admin: '',
@@ -105,6 +108,8 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose }) 
     console.log('==additionalInfo', additionalInfo);
     const data = await query(`businesses/${businessId}`, 'update', { ...formFields, ...coords, ...additionalInfo });
     console.log('==data', data);
+    // ! check data for error, if error show message to user
+    await fetchBusinessData();
     handleClose();
   };
 
