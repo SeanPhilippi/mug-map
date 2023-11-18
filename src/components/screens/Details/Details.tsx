@@ -35,6 +35,14 @@ const useStyles = makeStyles({
     // flex: 1,
     width: '10rem',
   },
+  iconStyle: {
+    marginRight: '.5rem',
+  },
+  link: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 const Details: FC = () => {
@@ -104,8 +112,10 @@ const Details: FC = () => {
               href={business.website}
               target='_blank'
               rel='noreferrer'
+              className={classes.link}
             >
-              <WebsiteIcon /> {business.website}
+              <WebsiteIcon className={classes.iconStyle} />
+                <span>{business.website}</span>
             </Link>
           )}
           {business.x && (
@@ -113,8 +123,12 @@ const Details: FC = () => {
               href={`https://x.com/${business.x}`}
               target='_blank'
               rel='noreferrer'
+              className={classes.link}
             >
-              <TwitterIcon /> {business.x}
+              <div>
+                <TwitterIcon className={classes.iconStyle} />
+                <span>{business.x}</span>
+              </div>
             </Link>
           )}
           {business.facebook && (
@@ -122,8 +136,10 @@ const Details: FC = () => {
               href={business.facebook}
               target='_blank'
               rel='noreferrer'
+              className={classes.link}
             >
-              <FacebookIcon /> {business.facebook}
+              <FacebookIcon className={classes.iconStyle} />
+              <span>{business.facebook}</span>
             </Link>
           )}
           {business.instagram && (
@@ -131,8 +147,10 @@ const Details: FC = () => {
               href={`https://instagram.com/${business.instagram}`}
               target='_blank'
               rel='noreferrer'
+              className={classes.link}
             >
-              <InstagramIcon /> {business.instagram}
+              <InstagramIcon className={classes.iconStyle} />
+              <span>{business.instagram}</span>
             </Link>
           )}
 
