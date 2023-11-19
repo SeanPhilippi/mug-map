@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
+import Splash from './components/screens/Splash/Splash';
 import Home from './components/screens/Home/Home';
 import Nav from './components/shared/Nav';
 import About from './components/screens/About/About';
@@ -34,6 +35,12 @@ const App: React.FC = () => {
             <Route
               exact
               path='/'
+            >
+              <Splash />
+            </Route>
+            <Route
+              exact
+              path='/home'
             >
               <Home />
             </Route>
