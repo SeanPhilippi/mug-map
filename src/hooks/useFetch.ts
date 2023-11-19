@@ -10,9 +10,9 @@ export const useFetch = () => {
   const query = async (route: string, method: string, body?: Record<string, unknown>) => {
     try {
       let response: AxiosResponse;
-      if (method === 'save') {
+      if (method === 'post') {
         response = await axios.post(`${API_URL}/${route}`, body);
-      } else if (method === 'update') {
+      } else if (method === 'put') {
         response = await axios.put(`${API_URL}/${route}`, body);
       } else if (method === 'get') {
         response = await axios.get(`${API_URL}/${route}`);

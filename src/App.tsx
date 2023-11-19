@@ -5,6 +5,8 @@ import Home from './components/screens/Home/Home';
 import Nav from './components/shared/Nav';
 import About from './components/screens/About/About';
 import Details from './components/screens/Details/Details';
+import AdminLogin from './components/screens/AdminLogin/AdminLogin';
+// import AdminPortal from './components/screens/AdminPortal/AdminPortal';
 
 const useStyles = makeStyles({
   appContainer: {
@@ -14,6 +16,7 @@ const useStyles = makeStyles({
     width: '100vw',
   },
   content: {
+    display: 'flex',
     flex: 1,
     overflow: 'auto', // enable scrolling if content overflows
   },
@@ -34,6 +37,18 @@ const App: React.FC = () => {
             >
               <Home />
             </Route>
+            <Route
+              exact
+              path='/admin/login'
+            >
+              <AdminLogin />
+            </Route>
+            {/* <Route
+              exact
+              path='/admin/portal'
+            >
+              <AdminPortal />
+            </Route> */}
             <Route
               exact
               path='/about'

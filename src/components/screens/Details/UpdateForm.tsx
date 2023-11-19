@@ -106,7 +106,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
       sufficient_outlets: additionalInfoMap[formFields.sufficient_outlets],
     };
     console.log('==additionalInfo', additionalInfo);
-    const data = await query(`businesses/${businessId}`, 'update', { ...formFields, ...coords, ...additionalInfo });
+    const data = await query(`businesses/${businessId}`, 'put', { ...formFields, ...coords, ...additionalInfo });
     console.log('==data', data);
     // ! check data for error, if error show message to user
     await fetchBusinessData();

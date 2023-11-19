@@ -100,7 +100,7 @@ const SubmissionForm: FC<SubmissionFormProps> = ({ handleClose }) => {
       sufficient_outlets: additionalInfoMap[formFields.sufficient_outlets],
     };
     console.log('==additionalInfo', additionalInfo);
-    const data = await query('businesses', 'save', { ...formFields, ...coords, ...additionalInfo });
+    const data = await query('businesses', 'post', { ...formFields, ...coords, ...additionalInfo });
     console.log('==data', data);
     handleClose();
   };
