@@ -19,6 +19,13 @@ const useStyles = makeStyles({
     marginRight: '1.5rem',
     width: '85%',
   },
+  searchLabel: {
+    color: 'black',
+  },
+  notchedOutline: {
+    color: 'black !important',
+    borderColor: 'black !important',
+  },
 });
 
 const Search: React.FC = () => {
@@ -70,9 +77,14 @@ const Search: React.FC = () => {
         borderRadius={10}
       >
         <TextField
-          label='Search'
+          label={<Typography className={classes.searchLabel}>Search</Typography>}
           variant='outlined'
           className={classes.searchBar}
+          InputProps={{
+            classes: {
+              notchedOutline: classes.notchedOutline,
+            },
+          }}
         />
         <Button
           variant='contained'

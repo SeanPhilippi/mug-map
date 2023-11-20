@@ -8,6 +8,27 @@ import About from './components/screens/About/About';
 import Details from './components/screens/Details/Details';
 import AdminLogin from './components/screens/AdminLogin/AdminLogin';
 // import AdminPortal from './components/screens/AdminPortal/AdminPortal';
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#784a1e',
+    },
+    // secondary: {
+    //   main: '#080606',
+    // },
+  },
+  overrides: {
+    MuiOutlinedInput: {
+      root: {
+        '& $notchedOutline': {
+          borderColor: 'black', // Set the color of the outline
+        },
+      },
+    },
+  },
+});
 
 const useStyles = makeStyles({
   appContainer: {
@@ -27,51 +48,53 @@ const App: React.FC = () => {
   const classes = useStyles();
 
   return (
-    <Router>
-      <div className={classes.appContainer}>
-        <Nav />
-        <div className={classes.content}>
-          <Switch>
-            <Route
-              exact
-              path='/'
-            >
-              <Splash />
-            </Route>
-            <Route
-              exact
-              path='/home'
-            >
-              <Home />
-            </Route>
-            <Route
-              exact
-              path='/admin/login'
-            >
-              <AdminLogin />
-            </Route>
-            {/* <Route
+    <ThemeProvider theme={theme}>
+      <Router>
+        <div className={classes.appContainer}>
+          <Nav />
+          <div className={classes.content}>
+            <Switch>
+              <Route
+                exact
+                path='/'
+              >
+                <Splash />
+              </Route>
+              <Route
+                exact
+                path='/home'
+              >
+                <Home />
+              </Route>
+              <Route
+                exact
+                path='/admin/login'
+              >
+                <AdminLogin />
+              </Route>
+              {/* <Route
               exact
               path='/admin/portal'
             >
               <AdminPortal />
             </Route> */}
-            <Route
-              exact
-              path='/about'
-            >
-              <About />
-            </Route>
-            <Route
-              exact
-              path='/business/:id'
-            >
-              <Details />
-            </Route>
-          </Switch>
+              <Route
+                exact
+                path='/about'
+              >
+                <About />
+              </Route>
+              <Route
+                exact
+                path='/business/:id'
+              >
+                <Details />
+              </Route>
+            </Switch>
+          </div>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </ThemeProvider>
   );
 };
 
