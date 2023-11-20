@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -33,7 +33,19 @@ const useStyles = makeStyles({
 });
 
 const Search: React.FC = () => {
+  const [filters, setFilters] = useState({
+    offersMugs: true,
+    acceptsPersonalMug: false,
+    wifi: true,
+    workFriendly: true,
+    outlets: true,
+  });
+
   const classes = useStyles();
+
+  const handleFilter = e => {
+    setFilters({ ...filters, [e.target.name]: e.target.checked });
+  };
 
   return (
     <Box
@@ -50,26 +62,61 @@ const Search: React.FC = () => {
         display='flex'
         p={1}
         borderRadius={10}
-        mb={2}
+        mb={1}
       >
         <FormControlLabel
-          control={<Checkbox style={{ color: 'black', transform: 'scale(1.1)' }} />}
+          control={
+            <Checkbox
+              name='offersMugs'
+              checked={filters.offersMugs}
+              onChange={handleFilter}
+              style={{ color: 'black', transform: 'scale(1.1)' }}
+            />
+          }
           label={<Typography className={classes.checkboxLabel}>Offers mugs</Typography>}
         />
         <FormControlLabel
-          control={<Checkbox style={{ color: 'black', transform: 'scale(1.1)' }} />}
+          control={
+            <Checkbox
+              name='acceptsPersonalMug'
+              checked={filters.acceptsPersonalMug}
+              onChange={handleFilter}
+              style={{ color: 'black', transform: 'scale(1.1)' }}
+            />
+          }
           label={<Typography className={classes.checkboxLabel}>Accepts personal mug</Typography>}
         />
         <FormControlLabel
-          control={<Checkbox style={{ color: 'black', transform: 'scale(1.1)' }} />}
+          control={
+            <Checkbox
+              name='wifi'
+              checked={filters.wifi}
+              onChange={handleFilter}
+              style={{ color: 'black', transform: 'scale(1.1)' }}
+            />
+          }
           label={<Typography className={classes.checkboxLabel}>Wi-Fi</Typography>}
         />
         <FormControlLabel
-          control={<Checkbox style={{ color: 'black', transform: 'scale(1.1)' }} />}
+          control={
+            <Checkbox
+              name='workFriendly'
+              checked={filters.workFriendly}
+              onChange={handleFilter}
+              style={{ color: 'black', transform: 'scale(1.1)' }}
+            />
+          }
           label={<Typography className={classes.checkboxLabel}>Work-friendly</Typography>}
         />
         <FormControlLabel
-          control={<Checkbox style={{ color: 'black', transform: 'scale(1.1)' }} />}
+          control={
+            <Checkbox
+              name='outlets'
+              checked={filters.outlets}
+              onChange={handleFilter}
+              style={{ color: 'black', transform: 'scale(1.1)' }}
+            />
+          }
           label={<Typography className={classes.checkboxLabel}>Outlets</Typography>}
         />
       </Box>
