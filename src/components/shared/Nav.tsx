@@ -8,15 +8,20 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles({
   appBar: {
+    backgroundColor: 'transparent',
+    boxShadow: 'none',
+    zIndex: 1,
     padding: '10px',
-    position: 'sticky',
+    position: 'fixed',
     top: 0,
   },
   title: {
-    'position': 'absolute',
-    'left': '50%',
-    'transform': 'translateX(-50%)',
-    'color': 'white',
+    position: 'absolute',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: '2rem',
   },
   toolbar: {
     display: 'flex',
@@ -41,11 +46,11 @@ const Nav: React.FC = () => {
     if (location.pathname !== '/') {
       history.push('/');
     }
-  }
+  };
 
   const cursorStyle = {
     cursor: location.pathname === '/' ? 'default' : 'pointer',
-  }
+  };
 
   return (
     <AppBar

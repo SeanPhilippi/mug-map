@@ -19,13 +19,9 @@ const theme = createTheme({
     //   main: '#080606',
     // },
   },
-  overrides: {
-    MuiOutlinedInput: {
-      root: {
-        '& $notchedOutline': {
-          borderColor: 'black', // Set the color of the outline
-        },
-      },
+  typography: {
+    button: {
+      textTransform: 'none', // Set the button text to not be transformed
     },
   },
 });

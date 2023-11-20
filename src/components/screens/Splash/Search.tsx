@@ -21,10 +21,14 @@ const useStyles = makeStyles({
   },
   searchLabel: {
     color: 'black',
+    lineHeight: '1rem',
   },
   notchedOutline: {
     color: 'black !important',
     borderColor: 'black !important',
+  },
+  searchBtn: {
+    fontSize: '1.2rem',
   },
 });
 
@@ -89,6 +93,7 @@ const Search: React.FC = () => {
         <Button
           variant='contained'
           color='primary'
+          className={classes.searchBtn}
         >
           Search
         </Button>
