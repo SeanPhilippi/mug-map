@@ -5,21 +5,23 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { makeStyles } from '@material-ui/core/styles';
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles({
   searchContainer: {
     borderRadius: '10px',
   },
-  filterOption: {
+  checkboxLabel: {
     color: 'black',
+    fontSize: '1.3rem',
   },
   searchBar: {
     marginRight: '1.5rem',
     width: '85%',
-  }
+  },
 });
 
-const Search = () => {
+const Search: React.FC = () => {
   const classes = useStyles();
 
   return (
@@ -40,29 +42,24 @@ const Search = () => {
         mb={2}
       >
         <FormControlLabel
-          className={classes.filterOption}
-          control={<Checkbox />}
-          label='Offers mugs'
+          control={<Checkbox style={{ color: 'black', transform: 'scale(1.1)' }} />}
+          label={<Typography className={classes.checkboxLabel}>Offers mugs</Typography>}
         />
         <FormControlLabel
-          className={classes.filterOption}
-          control={<Checkbox />}
-          label='Accepts personal mug'
+          control={<Checkbox style={{ color: 'black', transform: 'scale(1.1)' }} />}
+          label={<Typography className={classes.checkboxLabel}>Accepts personal mug</Typography>}
         />
         <FormControlLabel
-          className={classes.filterOption}
-          control={<Checkbox />}
-          label='Wi-Fi'
+          control={<Checkbox style={{ color: 'black', transform: 'scale(1.1)' }} />}
+          label={<Typography className={classes.checkboxLabel}>Wi-Fi</Typography>}
         />
         <FormControlLabel
-          className={classes.filterOption}
-          control={<Checkbox />}
-          label='Work-friendly'
+          control={<Checkbox style={{ color: 'black', transform: 'scale(1.1)' }} />}
+          label={<Typography className={classes.checkboxLabel}>Work-friendly</Typography>}
         />
         <FormControlLabel
-          className={classes.filterOption}
-          control={<Checkbox />}
-          label='Outlets'
+          control={<Checkbox style={{ color: 'black', transform: 'scale(1.1)' }} />}
+          label={<Typography className={classes.checkboxLabel}>Outlets</Typography>}
         />
       </Box>
       <Box
