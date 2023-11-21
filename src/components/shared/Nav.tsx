@@ -74,13 +74,12 @@ const Nav: React.FC = () => {
             Home
           </Link>
         )}
-        {/* make this go to MapScreen rendered zoomed out */}
-        {/* <Link
+        <Link
           to='/map'
           className={classes.link}
         >
           Map
-        </Link> */}
+        </Link>
         <Link
           to='/about'
           className={classes.link}

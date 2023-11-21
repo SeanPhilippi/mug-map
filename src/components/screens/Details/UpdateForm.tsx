@@ -7,9 +7,9 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { useFetch } from '../../../hooks/useFetch.js';
-import axios, { AxiosResponse } from 'axios';
-import type { BusinessData } from '../../../types.js';
+import useFetch from '../../../hooks/useFetch.ts';
+import getCoordsFromOpenCage from '../../../utils/getCoordsFromOpenCage.ts';
+import type { BusinessData } from '../../../types.ts';
 
 const useStyles = makeStyles(theme => ({
   form: {
@@ -22,14 +22,6 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2),
   },
 }));
-
-const getCoordinatesFromOpenCage = async (address: string) => {
-  const apiKey = import.meta.env.VITE_APP_OPEN_CAGE_KEY;
-  const response: AxiosResponse = await axios.get(
-    `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(address)}&key=${apiKey}`,
-  );
-  return response.data.results[0].geometry;
-};
 
 interface UpdateFormProps {
   business: BusinessData;
@@ -90,7 +82,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const address = `${formFields.address1} ${formFields.address2}, ${formFields.city}, ${formFields.state}, ${formFields.country}`;
-    const coords = await getCoordinatesFromOpenCage(address);
+    const coords = await getCoordsFromOpenCage(address);
     console.log('==formFields', formFields);
     console.log('==coords', coords);
     const additionalInfoMap = {

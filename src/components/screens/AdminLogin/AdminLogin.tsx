@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { useFetch } from '../../../hooks/useFetch.js';
+import useFetch from '../../../hooks/useFetch.ts';
 
 const useStyles = makeStyles({
   container: {

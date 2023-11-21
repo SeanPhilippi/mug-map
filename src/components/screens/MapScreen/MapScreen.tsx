@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Map from './Map';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -8,16 +9,51 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import SubmissionForm from './SubmissionForm';
+import getCoordsFromOpenCage from '../../../utils/getCoordsFromOpenCage';
 
 const useStyles = makeStyles({
+  mapContainer: {
+    paddingTop: '84px', // height of the Nav component
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
   submitButton: {
     marginTop: '2rem',
     marginBottom: '2rem',
+    margin: 'auto',
+    flex: 1,
   },
 });
 
 const MapScreen = () => {
+  // including zoom in coords obj to reduce renders for Map
+  const [coords, setCoords] = useState({ lat: 0, lng: 0, zoom: 3 });
   const [open, setOpen] = useState(false);
+  const location = useLocation();
+
+  const getCoordsFromUrl = async () => {
+    console.log('location.search', location.search);
+    if (location.search.length) {
+      console.log('==IN HERE');
+      const searchParams = new URLSearchParams(location.search);
+      console.log('searchParams', searchParams);
+      const searchText = searchParams.get('s');
+      console.log('searchText', searchText);
+      const filters = searchParams.get('f');
+      console.log('filters', filters);
+      const coordsFromQuery = await getCoordsFromOpenCage(searchText);
+      console.log('coordsFromQuery', coordsFromQuery);
+      coordsFromQuery.zoom = 13;
+      setCoords(coordsFromQuery);
+    }
+  };
+
+  useEffect(() => {
+    // on mount, get url params search data
+    // if it doesn't exist, show global view by using default values
+    getCoordsFromUrl();
+  }, []);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -30,8 +66,10 @@ const MapScreen = () => {
   const classes = useStyles();
 
   return (
-    <>
-      <Map />
+    <div className={classes.mapContainer}>
+      <Map
+        coords={coords}
+      />
       <Button
         className={classes.submitButton}
         variant='outlined'
@@ -61,7 +99,7 @@ const MapScreen = () => {
           <SubmissionForm handleClose={handleClose} />
         </DialogContent>
       </Dialog>
-    </>
+    </div>
   );
 };
 

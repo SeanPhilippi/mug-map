@@ -19,8 +19,8 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { makeStyles } from '@material-ui/core/styles';
 import UpdateForm from './UpdateForm';
-import { useFetch } from '../../../hooks/useFetch.js';
-import type { BusinessData } from '../../../types.js';
+import useFetch from '../../../hooks/useFetch.ts';
+import type { BusinessData } from '../../../types.ts';
 
 interface DetailsParams {
   id: string;

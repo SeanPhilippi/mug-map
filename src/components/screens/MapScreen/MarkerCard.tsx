@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { useHistory } from 'react-router-dom';
-import type { BusinessMarkerData } from '../../../types.js';
+import type { BusinessMarkerData } from '../../../types.ts';
 
 interface MarkerCardProps {
   businessMarkerData: BusinessMarkerData;

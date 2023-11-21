@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import { API_URL } from '../constants.ts';
 
-export const useFetch = () => {
+const useFetch = () => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
@@ -26,3 +26,5 @@ export const useFetch = () => {
 
   return { data, error, query };
 };
+
+export default useFetch;

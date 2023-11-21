@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import getCoordsFromOpenCage from '../../../utils/getCoordsFromOpenCage';
 import { useHistory } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -35,14 +36,6 @@ const useStyles = makeStyles({
   },
 });
 
-const getCoordinatesFromOpenCage = async (address: string) => {
-  const apiKey = import.meta.env.VITE_APP_OPEN_CAGE_KEY;
-  const response: AxiosResponse = await axios.get(
-    `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(address)}&key=${apiKey}`,
-  );
-  return response.data.results[0].geometry;
-};
-
 const Search: React.FC = () => {
   const history = useHistory();
   const [searchText, setSearchText] = useState('');
@@ -65,7 +58,7 @@ const Search: React.FC = () => {
   };
 
   const handleSearch = async () => {
-    const coords = await getCoordinatesFromOpenCage(searchText);
+    const coords = await getCoordsFromOpenCage(searchText);
     console.log('==Search coords', coords);
 
     const searchString = `${searchText.split(' ').join('%20')}`;
