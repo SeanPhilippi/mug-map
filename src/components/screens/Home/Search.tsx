@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -28,11 +29,23 @@ const useStyles = makeStyles({
     borderColor: 'black !important',
   },
   searchBtn: {
-    fontSize: '1.2rem',
+    fontSize: '1.1rem',
+    padding: '.8rem',
+    flex: 1,
   },
 });
 
+const getCoordinatesFromOpenCage = async (address: string) => {
+  const apiKey = import.meta.env.VITE_APP_OPEN_CAGE_KEY;
+  const response: AxiosResponse = await axios.get(
+    `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(address)}&key=${apiKey}`,
+  );
+  return response.data.results[0].geometry;
+};
+
 const Search: React.FC = () => {
+  const history = useHistory();
+  const [searchText, setSearchText] = useState('');
   const [filters, setFilters] = useState({
     offersMugs: true,
     acceptsPersonalMug: false,
@@ -43,8 +56,24 @@ const Search: React.FC = () => {
 
   const classes = useStyles();
 
-  const handleFilter = e => {
+  const handleSearchText = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.target.value);
+  };
+
+  const handleFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilters({ ...filters, [e.target.name]: e.target.checked });
+  };
+
+  const handleSearch = async () => {
+    const coords = await getCoordinatesFromOpenCage(searchText);
+    console.log('==Search coords', coords);
+
+    const searchString = `${searchText.split(' ').join('%20')}`;
+    const filterString = `${Object.keys(filters)
+      .filter(key => filters[key])
+      .join('%2C')}`;
+    // navigate to MapScreen
+    history.push(`/map?s=${searchString}&f=${filterString}`);
   };
 
   return (
@@ -60,6 +89,7 @@ const Search: React.FC = () => {
       <Box
         width='100%'
         display='flex'
+        justifyContent='space-between'
         p={1}
         borderRadius={10}
         mb={1}
@@ -128,7 +158,8 @@ const Search: React.FC = () => {
         borderRadius={10}
       >
         <TextField
-          label={<Typography className={classes.searchLabel}>Search</Typography>}
+          label={<Typography className={classes.searchLabel}>Search the map</Typography>}
+          placeholder='Boston, MA or 02131'
           variant='outlined'
           className={classes.searchBar}
           InputProps={{
@@ -136,14 +167,17 @@ const Search: React.FC = () => {
               notchedOutline: classes.notchedOutline,
             },
           }}
+          onChange={handleSearchText}
         />
         <Button
           variant='contained'
           color='primary'
           className={classes.searchBtn}
+          onClick={handleSearch}
         >
           Search
         </Button>
+        {/* another row of buttons, 'Near Me' and 'World Map' */}
       </Box>
     </Box>
   );

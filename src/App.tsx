@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import Splash from './components/screens/Splash/Splash';
 import Home from './components/screens/Home/Home';
+import MapScreen from './components/screens/MapScreen/MapScreen';
 import Nav from './components/shared/Nav';
 import About from './components/screens/About/About';
 import Details from './components/screens/Details/Details';
@@ -54,13 +54,13 @@ const App: React.FC = () => {
                 exact
                 path='/'
               >
-                <Splash />
+                <Home />
               </Route>
               <Route
-                exact
-                path='/home'
+                // exact
+                path='/map'
               >
-                <Home />
+                <MapScreen />
               </Route>
               <Route
                 exact

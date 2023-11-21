@@ -2,14 +2,15 @@ import { FC, useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import MarkerCard from './MarkerCard.tsx';
 import { useFetch } from '../../../hooks/useFetch.ts';
-import type { BusinessMarkerData } from '../../../types.d.ts';
+import type { BusinessMarkerData } from '../../../types';
 
 const Map: FC = () => {
   const [businesses, setBusinesses] = useState<BusinessMarkerData[]>([]);
-
   const { data, error, query } = useFetch();
 
   useEffect(() => {
+    // this wraps actualFetchBusinesses so it can be awaited,
+    // can't await a function directly in a useEffect
     const fetchBusinesses = async () => {
       try {
         const data = await actualFetchBusinesses();

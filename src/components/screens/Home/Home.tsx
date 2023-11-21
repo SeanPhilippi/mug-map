@@ -1,68 +1,63 @@
-import { useState } from 'react';
-import './Home.css';
-import Map from './Map';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import SubmissionForm from './SubmissionForm';
+import Search from './Search';
 
 const useStyles = makeStyles({
-  submitButton: {
-    marginTop: '2rem',
-    marginBottom: '2rem',
+  homeContainer: {
+    // height: '100vh',
+    position: 'relative',
+    width: '100%',
+    backgroundImage: 'url("/cafe.jpg")',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  mainContent: {
+    width: '60%',
+  },
+  text: {
+    // fontFamily:
+    fontSize: '2rem',
+    fontWeight: 'bold',
+    lineHeight: '2.1rem',
+  },
+  text2: {
+    fontSize: '1.5rem',
+    fontWeight: 'bold',
   },
 });
 
 const Home = () => {
-  const [open, setOpen] = useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const classes = useStyles();
 
   return (
-    <>
-      <Map />
-      <Button
-        className={classes.submitButton}
-        variant='outlined'
-        color='primary'
-        onClick={handleClickOpen}
-      >
-        Make a Submission
-      </Button>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby='form-dialog-title'
-      >
-        <DialogTitle id='form-dialog-title'>
-          <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
-            Submission Form
-            <IconButton
-              color='inherit'
-              onClick={handleClose}
-              aria-label='close'
-            >
-              <CloseIcon />
-            </IconButton>
-          </div>
-        </DialogTitle>
-        <DialogContent>
-          <SubmissionForm handleClose={handleClose} />
-        </DialogContent>
-      </Dialog>
-    </>
+    <div className={classes.homeContainer}>
+      <div className={classes.overlay}>
+        <div className={classes.mainContent}>
+          <p className={classes.text}>
+            Ditch the disposable
+            <br />
+            Cozy up with ceramic
+          </p>
+          <p className={classes.text2}>
+            Discover cafés that care for their craft <i>and</i> the environment.
+          </p>
+          <Search />
+        </div>
+      </div>
+    </div>
   );
 };
 

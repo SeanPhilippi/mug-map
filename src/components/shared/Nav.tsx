@@ -66,12 +66,21 @@ const Nav: React.FC = () => {
         >
           Mug Map
         </Typography>
-        <Link
-          to='/'
+        {location.pathname !== '/' && (
+          <Link
+            to='/'
+            className={classes.link}
+          >
+            Home
+          </Link>
+        )}
+        {/* make this go to MapScreen rendered zoomed out */}
+        {/* <Link
+          to='/map'
           className={classes.link}
         >
-          Home
-        </Link>
+          Map
+        </Link> */}
         <Link
           to='/about'
           className={classes.link}
