@@ -1,5 +1,6 @@
 import { FC, useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { v4 } from 'uuid';
 import MarkerCard from './MarkerCard.tsx';
 import useFetch from '../../../hooks/useFetch.ts';
 import type { BusinessMarkerData } from '../../../types';
@@ -10,15 +11,18 @@ interface MapProps {
     lng: number;
     zoom: number;
   };
+  filters: string;
 }
 
-const Map: FC<MapProps> = ({ coords }) => {
+const Map: FC<MapProps> = ({ coords, filters }) => {
   const [businesses, setBusinesses] = useState<BusinessMarkerData[]>([]);
   const { data, error, query } = useFetch();
 
   const fetchBusinesses = async () => {
     try {
-      const businessData = await query('businesses', 'get');
+      console.log('==filters', filters)
+      console.log('==FETCHING BUSINESSES WITH FILTERS', filters)
+      const businessData = await query(`businesses/${filters}`, 'get');
       setBusinesses(businessData);
       console.log('==data for /businesses GET', data);
       console.log('==error for /businesses GET', error);
@@ -33,11 +37,12 @@ const Map: FC<MapProps> = ({ coords }) => {
     // this wraps actualFetchBusinesses so it can be awaited,
     // can't await a function directly in a useEffect
     fetchBusinesses();
-  }, []);
+  }, [filters]);
 
   return (
     <MapContainer
-      key={coords.lat.toString()}
+      // need unique key every time since MapContainer is not mutable, new zoom and/or center values require new instance
+      key={v4()}
       // MapContainer requires a fixed height and width to render properly
       style={{ height: 'calc(90vh - 84px)', width: '100vw' }}
       center={[coords.lat, coords.lng]}

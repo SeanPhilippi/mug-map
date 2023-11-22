@@ -29,23 +29,26 @@ const useStyles = makeStyles({
 const MapScreen = () => {
   // including zoom in coords obj to reduce renders for Map
   const [coords, setCoords] = useState({ lat: 0, lng: 0, zoom: 3 });
+  const [filters, setFilters] = useState('');
   const [open, setOpen] = useState(false);
   const location = useLocation();
 
   const getCoordsFromUrl = async () => {
     console.log('location.search', location.search);
     if (location.search.length) {
-      console.log('==IN HERE');
       const searchParams = new URLSearchParams(location.search);
-      console.log('searchParams', searchParams);
       const searchText = searchParams.get('s');
       console.log('searchText', searchText);
       const filters = searchParams.get('f');
       console.log('filters', filters);
       const coordsFromQuery = await getCoordsFromOpenCage(searchText);
       console.log('coordsFromQuery', coordsFromQuery);
+      // set zoom to be changed in MapContainer
       coordsFromQuery.zoom = 13;
       setCoords(coordsFromQuery);
+      if (filters.length) {
+        setFilters(filters);
+      }
     }
   };
 
@@ -69,6 +72,7 @@ const MapScreen = () => {
     <div className={classes.mapContainer}>
       <Map
         coords={coords}
+        filters={filters}
       />
       <Button
         className={classes.submitButton}
