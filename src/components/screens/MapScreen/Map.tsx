@@ -18,24 +18,21 @@ const Map: FC<MapProps> = ({ coords, filters }) => {
   const [businesses, setBusinesses] = useState<BusinessMarkerData[]>([]);
   const { data, error, query } = useFetch();
 
-  const fetchBusinesses = async () => {
-    try {
-      console.log('==filters', filters)
-      console.log('==FETCHING BUSINESSES WITH FILTERS', filters)
-      const businessData = await query(`businesses/${filters}`, 'get');
-      setBusinesses(businessData);
-      console.log('==data for /businesses GET', data);
-      console.log('==error for /businesses GET', error);
-      return businessData;
-    } catch (err) {
-      // ! display error to user in future
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
-    // this wraps actualFetchBusinesses so it can be awaited,
-    // can't await a function directly in a useEffect
+    const fetchBusinesses = async () => {
+      try {
+        console.log('==filters', filters);
+        const businessData = await query(`businesses/${filters}`, 'get');
+        setBusinesses(businessData);
+        console.log('==data for /businesses GET', data);
+        console.log('==error for /businesses GET', error);
+        return businessData;
+      } catch (err) {
+        // ! display error to user in future
+        console.log(err);
+      }
+    };
+
     fetchBusinesses();
   }, [filters]);
 
