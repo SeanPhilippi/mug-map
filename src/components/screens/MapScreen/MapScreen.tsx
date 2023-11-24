@@ -49,6 +49,10 @@ const MapScreen = () => {
       if (filters.length) {
         setFilters(filters);
       }
+    } else {
+      // give default view because url is /map without search and filter url params
+      setCoords({ lat: 0, lng: 0, zoom: 3 });
+      setFilters('');
     }
   };
 
@@ -56,7 +60,7 @@ const MapScreen = () => {
     // on mount, get url params search data
     // if it doesn't exist, show global view by using default values
     getCoordsFromUrl();
-  }, []);
+  }, [location]);
 
   const handleClickOpen = () => {
     setOpen(true);
