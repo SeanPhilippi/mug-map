@@ -53,6 +53,12 @@ const Search: React.FC = () => {
     setSearchText(e.target.value);
   };
 
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  }
+
   const handleFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilters({ ...filters, [e.target.name]: e.target.checked });
   };
@@ -161,6 +167,7 @@ const Search: React.FC = () => {
             },
           }}
           onChange={handleSearchText}
+          onKeyDown={handleKeyPress}
         />
         <Button
           variant='contained'
