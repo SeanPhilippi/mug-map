@@ -3,7 +3,7 @@ import Search from './Search';
 
 const useStyles = makeStyles({
   homeContainer: {
-    // height: '100vh',
+    height: '100vh',
     position: 'relative',
     width: '100%',
     backgroundImage: 'url("/cafe.jpg")',

@@ -48,46 +48,44 @@ const App: React.FC = () => {
       <Router>
         <div className={classes.appContainer}>
           <Nav />
-          <div className={classes.content}>
-            <Switch>
-              <Route
-                exact
-                path='/'
-              >
-                <Home />
-              </Route>
-              <Route
-                // exact
-                path='/map'
-              >
-                <MapScreen />
-              </Route>
-              <Route
-                exact
-                path='/admin/login'
-              >
-                <AdminLogin />
-              </Route>
-              {/* <Route
+          <Switch>
+            <Route
+              exact
+              path='/'
+            >
+              <Home />
+            </Route>
+            <Route
+              // exact
+              path='/map'
+            >
+              <MapScreen />
+            </Route>
+            <Route
+              exact
+              path='/admin/login'
+            >
+              <AdminLogin />
+            </Route>
+            {/* <Route
               exact
               path='/admin/portal'
             >
               <AdminPortal />
             </Route> */}
-              <Route
-                exact
-                path='/about'
-              >
-                <About />
-              </Route>
-              <Route
-                exact
-                path='/business/:id'
-              >
-                <Details />
-              </Route>
-            </Switch>
-          </div>
+            <Route
+              exact
+              path='/about'
+            >
+              <About />
+            </Route>
+            <Route
+              exact
+              path='/business/:id'
+            >
+              <Details />
+            </Route>
+          </Switch>
         </div>
       </Router>
     </ThemeProvider>

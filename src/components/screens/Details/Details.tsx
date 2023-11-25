@@ -31,6 +31,7 @@ const useStyles = makeStyles({
     backgroundColor: 'white',
     display: 'flex',
     justifyContent: 'center',
+    marginTop: '84px', // height of the Nav component
   },
   button: {
     // flex: 1,

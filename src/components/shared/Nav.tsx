@@ -10,7 +10,7 @@ const useStyles = makeStyles({
   appBar: {
     backgroundColor: 'transparent',
     boxShadow: 'none',
-    zIndex: 1,
+    zIndex: 10,
     padding: '10px',
     position: 'fixed',
     top: 0,
