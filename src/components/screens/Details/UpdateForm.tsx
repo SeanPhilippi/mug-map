@@ -82,6 +82,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const address = `${formFields.address1} ${formFields.address2}, ${formFields.city}, ${formFields.state}, ${formFields.country}`;
+    console.log('*****address', address)
     const coords = await getCoordsFromOpenCage(address);
     console.log('==formFields', formFields);
     console.log('==coords', coords);

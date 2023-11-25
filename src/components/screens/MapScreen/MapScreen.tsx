@@ -34,6 +34,7 @@ const MapScreen = () => {
   const location = useLocation();
 
   const getCoordsFromUrl = async () => {
+    console.log('location', location);
     console.log('location.search', location.search);
     if (location.search.length) {
       const searchParams = new URLSearchParams(location.search);
@@ -49,6 +50,17 @@ const MapScreen = () => {
       if (filters.length) {
         setFilters(filters);
       }
+    } else if (location.pathname.includes('/near-me')) {
+      // get user's coordinates
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          setCoords({ lat: position.coords.latitude, lng: position.coords.longitude, zoom: 13 });
+        },
+        err => {
+          // ! show error message in a snackbar
+          console.log('error', err);
+        },
+      );
     } else {
       // give default view because url is /map without search and filter url params
       setCoords({ lat: 0, lng: 0, zoom: 3 });

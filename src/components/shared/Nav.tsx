@@ -75,10 +75,16 @@ const Nav: React.FC = () => {
           </Link>
         )}
         <Link
+          to='/map/near-me/'
+          className={classes.link}
+        >
+          Near Me
+        </Link>
+        <Link
           to='/map'
           className={classes.link}
         >
-          Map
+          World Map
         </Link>
         <Link
           to='/about'
