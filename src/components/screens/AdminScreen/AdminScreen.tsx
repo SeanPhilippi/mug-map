@@ -46,10 +46,20 @@ const AdminScreen: React.FC<AdminScreenProps> = ({ screen }) => {
   const handleRegister = async () => {
     // ! check password and confirmPassword match
     if (password === confirmPassword) {
-      const response = await query('/admin/register', 'post', { email, password });
-      console.log('==handleRegister', response);
-      console.log('==handleRegister data', data);
-      history.push('/admin/login');
+      try {
+        const response = await query('admin/register', 'post', { email, password });
+        console.log('==handleRegister', response);
+        // ! look at data and error coming from useFetch later
+        // ! they always come back as null upon first render after api call
+        // ! should consider scrapping them in return from useFetch
+        console.log('==handleRegister data', data);
+        console.log('==ERROR after registeration', error);
+        console.log('==DATA after registeration', data);
+        history.push('/admin/login');
+      } catch (err) {
+        // ! show error snackbar about why register failed
+        console.log('==error trying to register:', err);
+      }
     } else {
       // ! show error snackbar about passwords not matching
       console.log('==register error: passwords do not match');
@@ -57,10 +67,15 @@ const AdminScreen: React.FC<AdminScreenProps> = ({ screen }) => {
   };
 
   const handleLogin = async () => {
-    const response = await query('/admin/login', 'post', { email, password });
-    console.log('==handleLogin', response);
-    console.log('==handleLogin data', data);
-    history.push('/admin/dashboard');
+    try {
+      const response = await query('admin/login', 'post', { email, password });
+      console.log('==handleLogin', response);
+      console.log('==handleLogin data', data);
+      history.push('/admin/dashboard');
+    } catch (err) {
+      // ! show login error snackbar
+      console.log('==handleLogin error:', err);
+    }
   };
 
   const classes = useStyles();
@@ -83,7 +98,7 @@ const AdminScreen: React.FC<AdminScreenProps> = ({ screen }) => {
             }
           }}
         >
-          <h2 className={classes.title}>Admin {`${screen[0].toUpperCase} ${screen.substring(1)}`}</h2>
+          <h2 className={classes.title}>Admin {`${screen[0].toUpperCase()}${screen.substring(1)}`}</h2>
           {error && <div className={classes.error}>{error}</div>}
           <TextField
             label='email'
@@ -120,7 +135,7 @@ const AdminScreen: React.FC<AdminScreenProps> = ({ screen }) => {
             color='primary'
             className={classes.loginBtn}
           >
-            Login
+            {`${screen[0].toUpperCase()}${screen.substring(1)}`}
           </Button>
         </Box>
       </Card>
