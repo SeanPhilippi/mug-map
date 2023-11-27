@@ -6,7 +6,7 @@ import MapScreen from './components/screens/MapScreen/MapScreen';
 import Nav from './components/shared/Nav';
 import About from './components/screens/About/About';
 import Details from './components/screens/Details/Details';
-import AdminLogin from './components/screens/AdminLogin/AdminLogin';
+import AdminScreen from './components/screens/AdminScreen/AdminScreen';
 // import AdminPortal from './components/screens/AdminPortal/AdminPortal';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 
@@ -63,9 +63,15 @@ const App: React.FC = () => {
             </Route>
             <Route
               exact
+              path='/admin/register'
+            >
+              <AdminScreen screen='register' />
+            </Route>
+            <Route
+              exact
               path='/admin/login'
             >
-              <AdminLogin />
+              <AdminScreen screen='login' />
             </Route>
             {/* <Route
               exact
