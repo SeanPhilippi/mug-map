@@ -9,6 +9,7 @@ import Details from './components/screens/Details/Details';
 import AdminScreen from './components/screens/AdminScreen/AdminScreen';
 // import AdminPortal from './components/screens/AdminPortal/AdminPortal';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import { SnackbarProvider } from './utils/snackbarContext';
 
 const theme = createTheme({
   palette: {
@@ -45,55 +46,57 @@ const App: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Router>
-        <div className={classes.appContainer}>
-          <Nav />
-          <Switch>
-            <Route
-              exact
-              path='/'
-            >
-              <Home />
-            </Route>
-            <Route
-              // exact
-              path='/map'
-            >
-              <MapScreen />
-            </Route>
-            <Route
-              exact
-              path='/admin/register'
-            >
-              <AdminScreen screen='register' />
-            </Route>
-            <Route
-              exact
-              path='/admin/login'
-            >
-              <AdminScreen screen='login' />
-            </Route>
-            {/* <Route
+      <SnackbarProvider>
+        <Router>
+          <div className={classes.appContainer}>
+            <Nav />
+            <Switch>
+              <Route
+                exact
+                path='/'
+              >
+                <Home />
+              </Route>
+              <Route
+                // exact
+                path='/map'
+              >
+                <MapScreen />
+              </Route>
+              <Route
+                exact
+                path='/admin/register'
+              >
+                <AdminScreen screen='register' />
+              </Route>
+              <Route
+                exact
+                path='/admin/login'
+              >
+                <AdminScreen screen='login' />
+              </Route>
+              {/* <Route
               exact
               path='/admin/portal'
             >
               <AdminPortal />
             </Route> */}
-            <Route
-              exact
-              path='/about'
-            >
-              <About />
-            </Route>
-            <Route
-              exact
-              path='/business/:id'
-            >
-              <Details />
-            </Route>
-          </Switch>
-        </div>
-      </Router>
+              <Route
+                exact
+                path='/about'
+              >
+                <About />
+              </Route>
+              <Route
+                exact
+                path='/business/:id'
+              >
+                <Details />
+              </Route>
+            </Switch>
+          </div>
+        </Router>
+      </SnackbarProvider>
     </ThemeProvider>
   );
 };

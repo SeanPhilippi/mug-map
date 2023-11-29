@@ -6,6 +6,7 @@ import Card from '@material-ui/core/Card';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import useFetch from '../../../hooks/useFetch.ts';
+import { useSnackbar } from '../../../hooks/useSnackbar.ts';
 
 const useStyles = makeStyles({
   container: {
@@ -40,41 +41,26 @@ const AdminScreen: React.FC<AdminScreenProps> = ({ screen }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const { data, error, query } = useFetch();
+  const { query } = useFetch();
   const history = useHistory();
+  const { showMessage } = useSnackbar();
 
   const handleRegister = async () => {
     // ! check password and confirmPassword match
     if (password === confirmPassword) {
-      try {
-        const response = await query('admin/register', 'post', { email, password });
-        console.log('==handleRegister', response);
-        // ! look at data and error coming from useFetch later
-        // ! they always come back as null upon first render after api call
-        // ! should consider scrapping them in return from useFetch
-        console.log('==handleRegister data', data);
-        console.log('==ERROR after registeration', error);
-        console.log('==DATA after registeration', data);
-        history.push('/admin/login');
-      } catch (err) {
-        // ! show error snackbar about why register failed
-        console.log('==error trying to register:', err);
-      }
+      await query('admin/register', 'post', { email, password });
+      history.push('/admin/login');
     } else {
-      // ! show error snackbar about passwords not matching
-      console.log('==register error: passwords do not match');
+      showMessage('Passwords do not match');
     }
   };
 
   const handleLogin = async () => {
     try {
-      const response = await query('admin/login', 'post', { email, password });
-      console.log('==handleLogin', response);
-      console.log('==handleLogin data', data);
+      await query('admin/login', 'post', { email, password });
       history.push('/admin/dashboard');
     } catch (err) {
-      // ! show login error snackbar
-      console.log('==handleLogin error:', err);
+      showMessage(err);
     }
   };
 
@@ -99,7 +85,6 @@ const AdminScreen: React.FC<AdminScreenProps> = ({ screen }) => {
           }}
         >
           <h2 className={classes.title}>Admin {`${screen[0].toUpperCase()}${screen.substring(1)}`}</h2>
-          {error && <div className={classes.error}>{error}</div>}
           <TextField
             label='email'
             type='email'

@@ -1,13 +1,26 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import { API_URL } from '../constants.ts';
+import { useSnackbar } from './useSnackbar';
 
 const useFetch = () => {
   const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
+  const { showMessage } = useSnackbar();
+
+  useEffect(() => {
+    if (data?.message) {
+      showMessage(data.message);
+    }
+    if (error) {
+      console.log('==hitting showMessage for error', error);
+      showMessage(error);
+    }
+  }, [data, error]);
 
   // ! give query params type
   const query = async (route: string, method: string, body?: Record<string, unknown>) => {
+    console.log('==query body', body);
     try {
       let response: AxiosResponse;
       if (method === 'post') {
@@ -17,10 +30,17 @@ const useFetch = () => {
       } else if (method === 'get') {
         response = await axios.get(`${API_URL}/${route}`);
       }
-      setData(response.data);
-      return response.data;
+      console.log('==setting data', response.data);
+      if (response.data) {
+        setData(response.data);
+        return response.data;
+      }
     } catch (err) {
-      setError(err);
+      console.log('==error in useFetch', err.response.data.message);
+      if (err.response.data?.message) {
+        setError(err.response.data.message);
+        throw err.response.data.message;
+      }
     }
   };
 
