@@ -7,7 +7,7 @@ import Nav from './components/shared/Nav';
 import About from './components/screens/About/About';
 import Details from './components/screens/Details/Details';
 import AdminScreen from './components/screens/AdminScreen/AdminScreen';
-// import AdminPortal from './components/screens/AdminPortal/AdminPortal';
+import AdminPortal from './components/screens/AdminPortal/AdminPortal';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import { SnackbarProvider } from './utils/snackbarContext';
 
@@ -75,12 +75,12 @@ const App: React.FC = () => {
               >
                 <AdminScreen screen='login' />
               </Route>
-              {/* <Route
-              exact
-              path='/admin/portal'
-            >
-              <AdminPortal />
-            </Route> */}
+              <Route
+                exact
+                path='/admin/portal'
+              >
+                <AdminPortal />
+              </Route>
               <Route
                 exact
                 path='/about'
