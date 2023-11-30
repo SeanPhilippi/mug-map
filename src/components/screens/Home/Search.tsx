@@ -44,7 +44,7 @@ const Search: React.FC = () => {
     acceptsPersonalMug: false,
     wifi: true,
     workFriendly: true,
-    outlets: true,
+    sufficient_outlets: true,
   });
 
   const classes = useStyles();
@@ -140,13 +140,13 @@ const Search: React.FC = () => {
         <FormControlLabel
           control={
             <Checkbox
-              name='outlets'
-              checked={filters.outlets}
+              name='sufficient_outlets'
+              checked={filters.sufficient_outlets}
               onChange={handleFilter}
               style={{ color: 'black', transform: 'scale(1.1)' }}
             />
           }
-          label={<Typography className={classes.checkboxLabel}>Outlets</Typography>}
+          label={<Typography className={classes.checkboxLabel}>Sufficient Outlets</Typography>}
         />
       </Box>
       <Box

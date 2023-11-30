@@ -24,7 +24,7 @@ export const SnackbarProvider = ({ children }) => {
       {children}
       <Snackbar
         open={Boolean(message.length > 0)}
-        autoHideDuration={5000}
+        autoHideDuration={4000}
         onClose={handleClose}
         message={message}
       />
