@@ -195,9 +195,6 @@ const Details: FC = () => {
               </Typography>
               <Typography>Wifi: {business.wifi === null ? 'N/A' : business.wifi ? 'Yes' : 'No'}</Typography>
               <Typography>
-                Work Friendly: {business.work_friendly === null ? 'N/A' : business.work_friendly ? 'Yes' : 'No'}
-              </Typography>
-              <Typography>
                 Sufficient Outlets:{' '}
                 {business.sufficient_outlets === null ? 'N/A' : business.sufficient_outlets ? 'Yes' : 'No'}
               </Typography>

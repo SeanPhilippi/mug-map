@@ -3,7 +3,6 @@ export interface BusinessMarkerData {
   name: string;
   offers_mugs: boolean;
   wifi: boolean;
-  work_friendly: boolean;
   sufficient_outlets: boolean;
   accepts_personal_mug: boolean;
   lat: number;
@@ -36,7 +35,6 @@ export interface BusinessData {
   offers_mugs: boolean;
   accepts_personal_mug: boolean;
   wifi: boolean;
-  work_friendly: boolean;
   sufficient_outlets: boolean;
   description: string;
   submitter_name: string;

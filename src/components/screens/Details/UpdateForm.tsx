@@ -58,7 +58,6 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
     offers_mugs: business.offers_mugs !== null ? (business.offers_mugs.toString()) : 'notSure',
     accepts_personal_mug: business.accepts_personal_mug !== null ? (business.accepts_personal_mug.toString()) : 'notSure',
     wifi: business.wifi !== null ? (business.wifi.toString()) : 'notSure',
-    work_friendly: business.work_friendly !== null ? (business.work_friendly.toString()) : 'notSure',
     sufficient_outlets: business.sufficient_outlets !== null ? (business.sufficient_outlets.toString()) : 'notSure',
     // text fields
     description: business.description,
@@ -95,7 +94,6 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
       offers_mugs: additionalInfoMap[formFields.offers_mugs],
       accepts_personal_mug: additionalInfoMap[formFields.accepts_personal_mug],
       wifi: additionalInfoMap[formFields.wifi],
-      work_friendly: additionalInfoMap[formFields.work_friendly],
       sufficient_outlets: additionalInfoMap[formFields.sufficient_outlets],
     };
     console.log('==additionalInfo', additionalInfo);
@@ -269,18 +267,6 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
           value={formFields.wifi}
           onChange={handleChange}
           name='wifi'
-        >
-          <MenuItem value='notSure'>Not sure</MenuItem>
-          <MenuItem value='yes'>Yes</MenuItem>
-          <MenuItem value='no'>No</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl>
-        <InputLabel>Work-friendly?</InputLabel>
-        <Select
-          value={formFields.work_friendly}
-          onChange={handleChange}
-          name='work_friendly'
         >
           <MenuItem value='notSure'>Not sure</MenuItem>
           <MenuItem value='yes'>Yes</MenuItem>

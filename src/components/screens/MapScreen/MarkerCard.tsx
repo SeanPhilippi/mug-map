@@ -13,7 +13,7 @@ interface MarkerCardProps {
 }
 
 const MarkerCard: FC<MarkerCardProps> = ({
-  businessMarkerData: { id, name, offers_mugs, wifi, work_friendly, sufficient_outlets, accepts_personal_mug },
+  businessMarkerData: { id, name, offers_mugs, wifi, sufficient_outlets, accepts_personal_mug },
 }) => {
   const history = useHistory();
 
@@ -47,12 +47,6 @@ const MarkerCard: FC<MarkerCardProps> = ({
           {wifi && (
             <Chip
               label='Wifi'
-              style={{ borderRadius: '8px' }}
-            />
-          )}
-          {work_friendly && (
-            <Chip
-              label='Work-friendly'
               style={{ borderRadius: '8px' }}
             />
           )}

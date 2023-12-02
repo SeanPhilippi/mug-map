@@ -54,7 +54,6 @@ const SubmissionForm: FC<SubmissionFormProps> = ({ handleClose }) => {
     offers_mugs: 'notSure',
     accepts_personal_mug: 'notSure',
     wifi: 'notSure',
-    work_friendly: 'notSure',
     sufficient_outlets: 'notSure',
     // text fields
     description: '',
@@ -88,7 +87,6 @@ const SubmissionForm: FC<SubmissionFormProps> = ({ handleClose }) => {
       offers_mugs: additionalInfoMap[formFields.offers_mugs],
       accepts_personal_mug: additionalInfoMap[formFields.accepts_personal_mug],
       wifi: additionalInfoMap[formFields.wifi],
-      work_friendly: additionalInfoMap[formFields.work_friendly],
       sufficient_outlets: additionalInfoMap[formFields.sufficient_outlets],
     };
     console.log('==additionalInfo', additionalInfo);
@@ -245,18 +243,6 @@ const SubmissionForm: FC<SubmissionFormProps> = ({ handleClose }) => {
           value={formFields.wifi}
           onChange={handleChange}
           name='wifi'
-        >
-          <MenuItem value='notSure'>Not sure</MenuItem>
-          <MenuItem value='yes'>Yes</MenuItem>
-          <MenuItem value='no'>No</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl>
-        <InputLabel>Work-friendly?</InputLabel>
-        <Select
-          value={formFields.work_friendly}
-          onChange={handleChange}
-          name='work_friendly'
         >
           <MenuItem value='notSure'>Not sure</MenuItem>
           <MenuItem value='yes'>Yes</MenuItem>
