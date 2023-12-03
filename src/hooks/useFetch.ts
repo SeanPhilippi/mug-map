@@ -30,6 +30,7 @@ const useFetch = () => {
       } else if (method === 'get') {
         response = await axios.get(`${API_URL}/${route}`);
       }
+      console.log('==response in query', response);
       console.log('==setting data', response.data);
       if (response.data) {
         setData(response.data);

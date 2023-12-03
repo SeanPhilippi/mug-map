@@ -57,10 +57,7 @@ const App: React.FC = () => {
               >
                 <Home />
               </Route>
-              <Route
-                // exact
-                path='/map'
-              >
+              <Route path='/map'>
                 <MapScreen />
               </Route>
               <Route

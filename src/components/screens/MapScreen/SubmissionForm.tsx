@@ -38,12 +38,13 @@ const SubmissionForm: FC<SubmissionFormProps> = ({ handleClose }) => {
   const [formFields, setFormFields] = useState({
     // text fields
     name: '',
-    address1: '',
-    address2: '',
-    city: '',
-    state: '',
-    country: '',
-    zip: '',
+    address: '',
+    // address1: '',
+    // address2: '',
+    // city: '',
+    // state: '',
+    // country: '',
+    // zip: '',
     phone: '',
     email: '',
     instagram: '',
@@ -74,8 +75,8 @@ const SubmissionForm: FC<SubmissionFormProps> = ({ handleClose }) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const address = `${formFields.address1} ${formFields.address2}, ${formFields.city}, ${formFields.state}, ${formFields.country}`;
-    const coords = await getCoordsFromOpenCage(address);
+    // const address = `${formFields.address1} ${formFields.address2}, ${formFields.city}, ${formFields.state}, ${formFields.country}`;
+    const coords = await getCoordsFromOpenCage(formFields.address);
     console.log('==formFields', formFields);
     console.log('==coords', coords);
     const additionalInfoMap = {
@@ -110,6 +111,13 @@ const SubmissionForm: FC<SubmissionFormProps> = ({ handleClose }) => {
         onChange={handleChange}
       />
       <TextField
+        name='address'
+        label='Address (Please make address as complete as possible)'
+        variant='outlined'
+        required
+        onChange={handleChange}
+      />
+      {/* <TextField
         name='address1'
         label='Address (Street 1)'
         variant='outlined'
@@ -136,7 +144,6 @@ const SubmissionForm: FC<SubmissionFormProps> = ({ handleClose }) => {
         variant='outlined'
         onChange={handleChange}
       />
-      {/* consider making this a select element */}
       <TextField
         name='country'
         label='Country'
@@ -151,7 +158,7 @@ const SubmissionForm: FC<SubmissionFormProps> = ({ handleClose }) => {
         required
         type='number'
         onChange={handleChange}
-      />
+      /> */}
       {/* ! add auto-formatting to d-ddd-ddd-dddd format and only allow number input */}
       <TextField
         name='phone'
