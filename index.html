@@ -46,6 +46,12 @@
     <script
       type="module"
       src="/src/main.tsx"
-    ></script>
+    >
+      window.global = window;
+      window.process = {
+        env: { DEBUG: undefined },
+      }
+      var exports = {};
+    </script>
   </body>
 </html>
