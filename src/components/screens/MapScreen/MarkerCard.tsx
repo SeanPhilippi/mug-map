@@ -31,7 +31,6 @@ const MarkerCard: FC<MarkerCardProps> = ({
           {name}
         </Typography>
         <Box style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '8px' }}>
-          {/* offers_mugs could be n/a?  */}
           {offers_mugs && (
             <Chip
               label='Offers Mugs'

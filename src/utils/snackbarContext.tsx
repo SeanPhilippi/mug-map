@@ -5,6 +5,7 @@ export const SnackbarContext = createContext({
   message: '',
   showMessage: (msg: string) => {
     console.log('msg', msg);
+    // ! need to set message in some way for Snackbar?
   },
 });
 
@@ -16,7 +17,7 @@ export const SnackbarProvider = ({ children }) => {
   };
 
   const handleClose = () => {
-    showMessage('');
+    setMessage('');
   };
 
   return (
