@@ -117,13 +117,7 @@ const Details: FC = () => {
             <Typography variant='h4'>{business.name}</Typography>
             <p className={classes.paragraph}>
               <Typography variant='h6'>Location:</Typography>
-              <Typography>{business.address1}</Typography>
-              <Typography>{business.address2}</Typography>
-              <Typography>
-                {business.city}, {business.state}
-              </Typography>
-              <Typography>{business.country}</Typography>
-              <Typography>{business.zip}</Typography>
+              <Typography>{business.address}</Typography>
             </p>
 
             <p className={classes.paragraph}>

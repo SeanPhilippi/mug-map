@@ -42,12 +42,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
   const [formFields, setFormFields] = useState({
     // text fields
     name: business.name,
-    address1: business.address1,
-    address2: business.address2,
-    city: business.city,
-    state: business.state,
-    country: business.country,
-    zip: business.zip,
+    address: business.address,
     phone: business.phone,
     email: business.email,
     instagram: business.instagram,
@@ -80,9 +75,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const address = `${formFields.address1} ${formFields.address2}, ${formFields.city}, ${formFields.state}, ${formFields.country}`;
-    console.log('*****address', address)
-    const coords = await getCoordsFromOpenCage(address);
+    const coords = await getCoordsFromOpenCage(formFields.address);
     console.log('==formFields', formFields);
     console.log('==coords', coords);
     const additionalInfoMap = {
@@ -120,52 +113,11 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
         onChange={handleChange}
       />
       <TextField
-        name='address1'
-        value={formFields.address1}
-        label='Address (Street 1)'
+        name='address'
+        value={formFields.address}
+        label='Address (full)'
         variant='outlined'
         required
-        onChange={handleChange}
-      />
-      <TextField
-        name='address2'
-        value={formFields.address2}
-        label='Address (Street 2)'
-        variant='outlined'
-        onChange={handleChange}
-      />
-      <TextField
-        name='city'
-        value={formFields.city}
-        label='City'
-        required
-        variant='outlined'
-        onChange={handleChange}
-      />
-      <TextField
-        name='state'
-        value={formFields.state}
-        label='State/Province/Region'
-        required
-        variant='outlined'
-        onChange={handleChange}
-      />
-      {/* consider making this a select element */}
-      <TextField
-        name='country'
-        value={formFields.country}
-        label='Country'
-        variant='outlined'
-        required
-        onChange={handleChange}
-      />
-      <TextField
-        name='zip'
-        value={formFields.zip}
-        label='Zip'
-        variant='outlined'
-        required
-        type='number'
         onChange={handleChange}
       />
       {/* ! add auto-formatting to d-ddd-ddd-dddd format and only allow number input */}
