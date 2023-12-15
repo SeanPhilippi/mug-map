@@ -111,6 +111,7 @@ const SubmissionForm: FC<SubmissionFormProps> = ({ handleClose }) => {
         onChange={handleChange}
       />
       {/* ! add auto-formatting to d-ddd-ddd-dddd format and only allow number input */}
+      {/* allow pasting of numbers but strip non-digit characters like '+' */}
       <TextField
         name='phone'
         label='Phone'
