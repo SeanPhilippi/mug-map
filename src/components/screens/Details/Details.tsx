@@ -11,6 +11,7 @@ import {
   Facebook as FacebookIcon,
   Instagram as InstagramIcon,
   Language as WebsiteIcon,
+  FileCopy as CopyIcon,
 } from '@material-ui/icons';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -61,6 +62,14 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     alignItems: 'flex-start',
   },
+  detailCopyContainer: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  subLabel: {
+    fontWeight: 'bold',
+    marginRight: '.5rem',
+  },
   footerButtons: {
     margin: '2rem auto',
   },
@@ -101,10 +110,14 @@ const Details: FC = () => {
   const handleGoBack = () => {
     history.goBack(); // Go back to the previous screen
   };
-  console.log('==data for /businesses/:id GET', data);
-  console.log('==error for /businesses/:id GET', error);
+
+  const copyToClipboard = text => {
+    navigator.clipboard.writeText(text);
+  };
 
   const classes = useStyles();
+  console.log('==data for /businesses/:id GET', data);
+  console.log('==error for /businesses/:id GET', error);
 
   return (
     business && (
@@ -117,15 +130,30 @@ const Details: FC = () => {
             <Typography variant='h4'>{business.name}</Typography>
             <p className={classes.paragraph}>
               <Typography variant='h6'>Location:</Typography>
-              <Typography>{business.address}</Typography>
+              <div className={classes.detailCopyContainer}>
+                <Typography>{business.address}</Typography>
+                <IconButton onClick={() => copyToClipboard(business.address)}>
+                  <CopyIcon />
+                </IconButton>
+              </div>
             </p>
 
             <p className={classes.paragraph}>
               <Typography variant='h6'>Contact:</Typography>
-              <Typography>{business.phone}</Typography>
-              <Typography>{business.email}</Typography>
-              <Typography>{business.instagram}</Typography>
-              <Typography>{business.facebook}</Typography>
+              <div className={classes.detailCopyContainer}>
+                <Typography className={classes.subLabel}>Phone:</Typography>
+                <Typography>{business.phone}</Typography>
+                <IconButton onClick={() => copyToClipboard(business.phone)}>
+                  <CopyIcon />
+                </IconButton>
+              </div>
+              <div className={classes.detailCopyContainer}>
+                <Typography className={classes.subLabel}>Email:</Typography>
+                <Typography>{business.email}</Typography>
+                <IconButton onClick={() => copyToClipboard(business.email)}>
+                  <CopyIcon />
+                </IconButton>
+              </div>
             </p>
 
             <p className={classes.paragraph}>
