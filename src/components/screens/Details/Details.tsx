@@ -6,6 +6,7 @@ import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import Tooltip from '@material-ui/core/Tooltip';
 import {
   Twitter as TwitterIcon,
   Facebook as FacebookIcon,
@@ -35,7 +36,6 @@ const useStyles = makeStyles({
     marginTop: '84px', // height of the Nav component
   },
   button: {
-    // flex: 1,
     width: '10rem',
   },
   iconStyle: {
@@ -62,9 +62,18 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     alignItems: 'flex-start',
   },
-  detailCopyContainer: {
-    display: 'flex',
-    alignItems: 'center',
+  field: {
+    'display': 'flex',
+    'alignItems': 'center',
+    '&:hover': {
+      '& $copyButton': {
+        opacity: 1,
+      },
+    },
+  },
+  copyButton: {
+    opacity: 0,
+    transition: 'opacity 0.2s',
   },
   subLabel: {
     fontWeight: 'bold',
@@ -113,6 +122,7 @@ const Details: FC = () => {
 
   const copyToClipboard = text => {
     navigator.clipboard.writeText(text);
+    // add snackbar
   };
 
   const classes = useStyles();
@@ -130,29 +140,44 @@ const Details: FC = () => {
             <Typography variant='h4'>{business.name}</Typography>
             <p className={classes.paragraph}>
               <Typography variant='h6'>Location:</Typography>
-              <div className={classes.detailCopyContainer}>
+              <div className={classes.field}>
                 <Typography>{business.address}</Typography>
-                <IconButton onClick={() => copyToClipboard(business.address)}>
-                  <CopyIcon />
-                </IconButton>
+                <Tooltip title='Copy address'>
+                  <IconButton
+                    className={classes.copyButton}
+                    onClick={() => copyToClipboard(business.address)}
+                  >
+                    <CopyIcon fontSize='small' />
+                  </IconButton>
+                </Tooltip>
               </div>
             </p>
 
             <p className={classes.paragraph}>
               <Typography variant='h6'>Contact:</Typography>
-              <div className={classes.detailCopyContainer}>
+              <div className={classes.field}>
                 <Typography className={classes.subLabel}>Phone:</Typography>
                 <Typography>{business.phone}</Typography>
-                <IconButton onClick={() => copyToClipboard(business.phone)}>
-                  <CopyIcon />
-                </IconButton>
+                <Tooltip title='Copy phone'>
+                  <IconButton
+                    className={classes.copyButton}
+                    onClick={() => copyToClipboard(business.phone)}
+                  >
+                    <CopyIcon fontSize='small' />
+                  </IconButton>
+                </Tooltip>
               </div>
-              <div className={classes.detailCopyContainer}>
+              <div className={classes.field}>
                 <Typography className={classes.subLabel}>Email:</Typography>
                 <Typography>{business.email}</Typography>
-                <IconButton onClick={() => copyToClipboard(business.email)}>
-                  <CopyIcon />
-                </IconButton>
+                <Tooltip title='Copy email'>
+                  <IconButton
+                    className={classes.copyButton}
+                    onClick={() => copyToClipboard(business.email)}
+                  >
+                    <CopyIcon fontSize='small' />
+                  </IconButton>
+                </Tooltip>
               </div>
             </p>
 
