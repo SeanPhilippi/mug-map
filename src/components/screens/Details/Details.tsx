@@ -1,5 +1,6 @@
 import { FC, useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import { useSnackbar } from '../../../hooks/useSnackbar.ts';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
@@ -87,6 +88,7 @@ const useStyles = makeStyles({
 const Details: FC = () => {
   const { id } = useParams<DetailsParams>();
   const history = useHistory();
+  const { showMessage } = useSnackbar();
 
   const [business, setBusinessData] = useState<BusinessData>(null);
 
@@ -122,7 +124,7 @@ const Details: FC = () => {
 
   const copyToClipboard = text => {
     navigator.clipboard.writeText(text);
-    // add snackbar
+    showMessage('Copied to clipboard');
   };
 
   const classes = useStyles();
