@@ -8,7 +8,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles({
   appBar: {
-    backgroundColor: 'transparent',
+    // backgroundColor: 'transparent',
     boxShadow: 'none',
     zIndex: 10,
     padding: '10px',
@@ -56,6 +56,7 @@ const Nav: React.FC = () => {
     <AppBar
       position='static'
       className={classes.appBar}
+      style={{ background: location.pathname === '/' ? 'transparent' : 'black' }}
     >
       <Toolbar className={classes.toolbar}>
         <Typography

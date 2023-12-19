@@ -17,6 +17,7 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    overflow: 'hidden', // keeps Map component from spilling out of parent container if it's bigger, clips it
   },
   submitButton: {
     marginTop: '2rem',
