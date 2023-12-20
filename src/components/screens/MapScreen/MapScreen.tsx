@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useSnackbar } from '../../../hooks/useSnackbar.ts';
 import Map from './Map';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -33,6 +34,7 @@ const MapScreen = () => {
   const [filters, setFilters] = useState('');
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const { showMessage } = useSnackbar();
 
   const getCoordsFromUrl = async () => {
     console.log('location', location);
@@ -60,6 +62,7 @@ const MapScreen = () => {
         err => {
           // ! show error message in a snackbar
           console.log('error', err);
+          showMessage(err.message);
         },
       );
     } else {

@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { v4 } from 'uuid';
 import MarkerCard from './MarkerCard.tsx';
 import useFetch from '../../../hooks/useFetch.ts';
+import { useSnackbar } from '../../../hooks/useSnackbar.ts';
 import type { BusinessMarkerData } from '../../../types';
 
 interface MapProps {
@@ -17,6 +18,7 @@ interface MapProps {
 const Map: FC<MapProps> = ({ coords, filters }) => {
   const [businesses, setBusinesses] = useState<BusinessMarkerData[]>([]);
   const { data, error, query } = useFetch();
+  const { showMessage } = useSnackbar();
 
   useEffect(() => {
     const fetchBusinesses = async () => {
@@ -30,6 +32,7 @@ const Map: FC<MapProps> = ({ coords, filters }) => {
       } catch (err) {
         // ! display error to user in future
         console.log(err);
+        showMessage(err);
       }
     };
 

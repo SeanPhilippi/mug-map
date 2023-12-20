@@ -100,6 +100,7 @@ const Details: FC = () => {
       setBusinessData(businessData);
     } catch (err) {
       console.log(err);
+      showMessage(err);
     }
   };
 
