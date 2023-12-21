@@ -1,5 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 import Search from './Search';
+import SocialMediaPanel from './SocialMediaPanel';
 
 const useStyles = makeStyles({
   homeContainer: {
@@ -14,7 +15,10 @@ const useStyles = makeStyles({
     alignItems: 'center',
   },
   overlay: {
-    position: 'absolute',
+    // position: 'absolute',
+    position: 'relative',
+    width: '100%',
+    height: '100%',
     top: 0,
     bottom: 0,
     left: 0,
@@ -37,6 +41,12 @@ const useStyles = makeStyles({
     fontSize: '1.5rem',
     fontWeight: 'bold',
   },
+  socialMediaPanel: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    zIndex: 1,
+  }
 });
 
 const Home = () => {
@@ -55,6 +65,7 @@ const Home = () => {
             Discover cafés that care for their craft <i>and</i> the environment.
           </p>
           <Search />
+          <SocialMediaPanel className={classes.socialMediaPanel} />
         </div>
       </div>
     </div>
