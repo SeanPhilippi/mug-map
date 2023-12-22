@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import Search from './Search';
 import SocialMediaPanel from './SocialMediaPanel';
+import CopyrightPanel from './CopyrightPanel';
 
 const useStyles = makeStyles({
   homeContainer: {
@@ -55,6 +56,7 @@ const Home = () => {
           </p>
           <Search />
           <SocialMediaPanel />
+          <CopyrightPanel />
         </div>
       </div>
     </div>
