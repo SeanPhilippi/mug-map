@@ -11,6 +11,10 @@ const useStyles = makeStyles({
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
     width: '300px',
     padding: '16px',
+    position: 'absolute',
+    bottom: '2rem',
+    left: '2rem',
+    zIndex: 1,
   },
 });
 

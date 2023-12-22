@@ -15,14 +15,9 @@ const useStyles = makeStyles({
     alignItems: 'center',
   },
   overlay: {
-    // position: 'absolute',
-    position: 'relative',
+    position: 'absolute',
     width: '100%',
     height: '100%',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     display: 'flex',
     justifyContent: 'center',
@@ -41,12 +36,6 @@ const useStyles = makeStyles({
     fontSize: '1.5rem',
     fontWeight: 'bold',
   },
-  socialMediaPanel: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    zIndex: 1,
-  }
 });
 
 const Home = () => {
@@ -65,7 +54,7 @@ const Home = () => {
             Discover cafés that care for their craft <i>and</i> the environment.
           </p>
           <Search />
-          <SocialMediaPanel className={classes.socialMediaPanel} />
+          <SocialMediaPanel />
         </div>
       </div>
     </div>
