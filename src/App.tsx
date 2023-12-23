@@ -21,7 +21,36 @@ const theme = createTheme({
     // },
   },
   typography: {
+    fontFamily: 'Lato, sans-serif',
+    h1: {
+      fontFamily: 'Montserrat, sans-serif',
+    },
+    h2: {
+      fontFamily: 'Montserrat, sans-serif',
+    },
+    h3: {
+      fontFamily: 'Montserrat, sans-serif',
+    },
+    h4: {
+      fontFamily: 'Montserrat, sans-serif',
+    },
+    h5: {
+      fontFamily: 'Montserrat, sans-serif',
+    },
+    h6: {
+      fontFamily: 'Montserrat, sans-serif',
+    },
+    body1: {
+      fontFamily: 'Lato, sans-serif',
+    },
+    body2: {
+      fontFamily: 'Lato, sans-serif',
+    },
+    caption: {
+      fontFamily: 'Lato, sans-serif',
+    },
     button: {
+      fontFamily: 'Lato, sans-serif',
       textTransform: 'none', // Set the button text to not be transformed
     },
   },
