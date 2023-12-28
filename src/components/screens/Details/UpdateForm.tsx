@@ -65,12 +65,21 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
 
   const isValidPhoneNumber = phoneNumber => {
     // Allow optional country code
+    console.log('==phoneNumber', phoneNumber);
+    console.log('==phoneNumber type', typeof phoneNumber);
+
     let formatted = phoneNumber.replace(/^\+/, '');
 
     // Add dashes between blocks
     formatted = formatted.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
 
-    return formatted.match(/^\d{3}-\d{3}-\d{4}$/);
+    if (formatted.match(/^\d{3}-\d{3}-\d{4}$/)) {
+      console.log('==formatted', formatted);
+      console.log('==formatted finished', formatted.match(/^\d{3}-\d{3}-\d{4}$/));
+      return formatted.match(/^\d{3}-\d{3}-\d{4}$/)[0];
+    } else {
+      return false;
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,19 +87,25 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
     // console.log('==checked', e.target.checked);
     // console.log('==value', e.target.value);
     const name = e.target.name;
-    let value = e.target.value;
+    const value = e.target.value;
 
     if (name === 'phone') {
+      console.log('==phone value', value);
+      let formatted = value;
       if (isValidPhoneNumber(value)) {
-        value = isValidPhoneNumber(value);
-      } else {
-        // ! set error state
+        console.log('==phone value past isValidPhoneNumber', value);
+        formatted = isValidPhoneNumber(value);
       }
+      setFormFields({
+        ...formFields,
+        [name]: formatted,
+      });
+    } else {
+      setFormFields({
+        ...formFields,
+        [name]: value,
+      });
     }
-    setFormFields({
-      ...formFields,
-      [name]: value,
-    });
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -148,7 +163,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
         label='Phone'
         variant='outlined'
         type='number'
-        error={!isValidPhoneNumber(formFields.phone)}
+        // error={!isValidPhoneNumber(formFields.phone)}
         helperText={!isValidPhoneNumber(formFields.phone) ? 'Invalid phone number' : ''}
         onChange={handleChange}
       />
