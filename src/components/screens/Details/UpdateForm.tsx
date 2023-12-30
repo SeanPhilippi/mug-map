@@ -7,6 +7,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import useFetch from '../../../hooks/useFetch.ts';
 import getCoordsFromOpenCage from '../../../utils/getCoordsFromOpenCage.ts';
 import type { BusinessData } from '../../../types.ts';
@@ -90,13 +91,13 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
     });
   };
 
-  const validatePhoneNumber = (value) => {
+  const validatePhoneNumber = value => {
     if (value.match(/^\d+$/) && value.length >= 10 && value.length <= 15) {
       setPhoneError(false);
     } else {
       setPhoneError(true);
     }
-  }
+  };
 
   // const validateCountryCode = (value) => {
   //   if (value) {
@@ -168,11 +169,19 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
         required
         onChange={handleChange}
       />
-      {/* <Select name='country_code' value={formFields.country_code} onChange={handleChange} onBlur={handleBlur} error={countryCodeError}>
+      // ! might not need error state at all, just don't have null country code option in Select
+      {/* <Select
+        name='country_code'
+        value={formFields.country_code}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        error={countryCodeError}
+      >
         {countryCodes.map(country => {
           return <MenuItem value={country.value}>{country.label}</MenuItem>;
         })}
       </Select> */}
+      {/* {countryCodeError && <FormHelperText error>Country code is required</FormHelperText>} */}
       {/* ! add auto-formatting to d-ddd-ddd-dddd format and only allow number input */}
       {/* allow pasting of numbers but strip non-digit characters like '+' */}
       <TextField
@@ -184,6 +193,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
         onBlur={handleBlur}
         onChange={handleChange}
         error={phoneError}
+        helperText={phoneError ? 'Invalid phone number' : ''}
       />
       <TextField
         name='email'
