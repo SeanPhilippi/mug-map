@@ -39,6 +39,17 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
   console.log('data', data);
   console.log('error', error);
 
+  // converts booleans and null values to proper keys for Select components
+  const getSelectValue = (value: boolean | null) => {
+    if (value) {
+      return 'yes';
+    } else if (value === false) {
+      return 'no';
+    } else {
+      return 'noSure';
+    }
+  };
+
   const [formFields, setFormFields] = useState({
     // text fields
     name: business.name,
@@ -50,10 +61,11 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
     x: business.x,
     website: business.website,
     // selects
-    offers_mugs: business.offers_mugs !== null ? business.offers_mugs.toString() : 'notSure',
-    accepts_personal_mug: business.accepts_personal_mug !== null ? business.accepts_personal_mug.toString() : 'notSure',
-    wifi: business.wifi !== null ? business.wifi.toString() : 'notSure',
-    sufficient_outlets: business.sufficient_outlets !== null ? business.sufficient_outlets.toString() : 'notSure',
+    offers_mugs: business.offers_mugs !== null ? getSelectValue(business.offers_mugs) : 'notSure',
+    accepts_personal_mug:
+      business.accepts_personal_mug !== null ? getSelectValue(business.accepts_personal_mug) : 'notSure',
+    wifi: business.wifi !== null ? getSelectValue(business.wifi) : 'notSure',
+    sufficient_outlets: business.sufficient_outlets !== null ? getSelectValue(business.sufficient_outlets) : 'notSure',
     // text fields
     description: business.description,
     // not populated w previous data, because user does not need to know past values and
@@ -63,7 +75,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
     message_to_admin: '',
   });
 
-  const isValidPhoneNumber = phoneNumber => {
+  const formatPhoneNumber = phoneNumber => {
     // Allow optional country code
     console.log('==phoneNumber', phoneNumber);
     console.log('==phoneNumber type', typeof phoneNumber);
@@ -73,39 +85,25 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
     // Add dashes between blocks
     formatted = formatted.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
 
-    if (formatted.match(/^\d{3}-\d{3}-\d{4}$/)) {
-      console.log('==formatted', formatted);
-      console.log('==formatted finished', formatted.match(/^\d{3}-\d{3}-\d{4}$/));
-      return formatted.match(/^\d{3}-\d{3}-\d{4}$/)[0];
-    } else {
-      return false;
-    }
+    // if (formatted.match(/^\d{3}-\d{3}-\d{4}$/)) {
+    //   console.log('==formatted', formatted);
+    //   console.log('==formatted finished', formatted.match(/^\d{3}-\d{3}-\d{4}$/));
+    //   return formatted.match(/^\d{3}-\d{3}-\d{4}$/)[0];
+    // } else {
+    //   return false;
+    // }
+    return formatted;
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // console.log('==name', e.target.name);
-    // console.log('==checked', e.target.checked);
-    // console.log('==value', e.target.value);
     const name = e.target.name;
     const value = e.target.value;
-
-    if (name === 'phone') {
-      console.log('==phone value', value);
-      let formatted = value;
-      if (isValidPhoneNumber(value)) {
-        console.log('==phone value past isValidPhoneNumber', value);
-        formatted = isValidPhoneNumber(value);
-      }
-      setFormFields({
-        ...formFields,
-        [name]: formatted,
-      });
-    } else {
-      setFormFields({
-        ...formFields,
-        [name]: value,
-      });
-    }
+    console.log('==name', name);
+    console.log('==value', value);
+    setFormFields({
+      ...formFields,
+      [name]: value,
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -162,9 +160,9 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
         value={formFields.phone}
         label='Phone'
         variant='outlined'
-        type='number'
+        // type='number'
         // error={!isValidPhoneNumber(formFields.phone)}
-        helperText={!isValidPhoneNumber(formFields.phone) ? 'Invalid phone number' : ''}
+        // helperText={!isValidPhoneNumber(formFields.phone) ? 'Invalid phone number' : ''}
         onChange={handleChange}
       />
       <TextField
