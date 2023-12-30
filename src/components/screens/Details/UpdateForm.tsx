@@ -75,26 +75,6 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
     message_to_admin: '',
   });
 
-  const formatPhoneNumber = phoneNumber => {
-    // Allow optional country code
-    console.log('==phoneNumber', phoneNumber);
-    console.log('==phoneNumber type', typeof phoneNumber);
-
-    let formatted = phoneNumber.replace(/^\+/, '');
-
-    // Add dashes between blocks
-    formatted = formatted.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
-
-    // if (formatted.match(/^\d{3}-\d{3}-\d{4}$/)) {
-    //   console.log('==formatted', formatted);
-    //   console.log('==formatted finished', formatted.match(/^\d{3}-\d{3}-\d{4}$/));
-    //   return formatted.match(/^\d{3}-\d{3}-\d{4}$/)[0];
-    // } else {
-    //   return false;
-    // }
-    return formatted;
-  };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -160,9 +140,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
         value={formFields.phone}
         label='Phone'
         variant='outlined'
-        // type='number'
-        // error={!isValidPhoneNumber(formFields.phone)}
-        // helperText={!isValidPhoneNumber(formFields.phone) ? 'Invalid phone number' : ''}
+        type='number'
         onChange={handleChange}
       />
       <TextField
@@ -203,14 +181,6 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
         placeholder='@'
         onChange={handleChange}
       />
-      {/* <TextField
-        name='youtube'
-        value={formFields.youtube}
-        label='Youtube'
-        variant='outlined'
-        placeholder='youtube.com/
-        onChange={handleChange}
-      /> */}
       <TextField
         name='website'
         value={formFields.website}
