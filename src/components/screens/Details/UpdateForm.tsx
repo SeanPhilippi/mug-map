@@ -54,6 +54,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
     // text fields
     name: business.name,
     address: business.address,
+    // countryCode: business.country_code,
     phone: business.phone,
     email: business.email,
     instagram: business.instagram,
@@ -75,6 +76,9 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
     message_to_admin: '',
   });
 
+  const [phoneError, setPhoneError] = useState(false);
+  // const [countryCodeError, setCountryCodeError] = useState(false);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -84,6 +88,31 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
       ...formFields,
       [name]: value,
     });
+  };
+
+  const validatePhoneNumber = (value) => {
+    if (value.match(/^\d+$/) && value.length >= 10 && value.length <= 15) {
+      setPhoneError(false);
+    } else {
+      setPhoneError(true);
+    }
+  }
+
+  // const validateCountryCode = (value) => {
+  //   if (value) {
+  //     setCountryCodeError(false);
+  //   } else {
+  //     setCountryCodeError(true);
+  //   }
+  // }
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (e.target.name === 'phone') {
+      validatePhoneNumber(e.target.value);
+    } else if (e.target.name === 'areaCode') {
+      // check that areaCode is not default value (null?)
+      // validateCountryCode(e.target.value);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -110,6 +139,12 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
     handleClose();
   };
 
+  // ! type this later
+  // const countryCodes = [
+  //   { value: '1', label: '+1 (US)' },
+  //   { value: '44', label: '+44 (UK)' },
+  // ];
+
   return (
     <form
       className={classes.form}
@@ -133,6 +168,11 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
         required
         onChange={handleChange}
       />
+      {/* <Select name='country_code' value={formFields.country_code} onChange={handleChange} onBlur={handleBlur} error={countryCodeError}>
+        {countryCodes.map(country => {
+          return <MenuItem value={country.value}>{country.label}</MenuItem>;
+        })}
+      </Select> */}
       {/* ! add auto-formatting to d-ddd-ddd-dddd format and only allow number input */}
       {/* allow pasting of numbers but strip non-digit characters like '+' */}
       <TextField
@@ -141,7 +181,9 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
         label='Phone'
         variant='outlined'
         type='number'
+        onBlur={handleBlur}
         onChange={handleChange}
+        error={phoneError}
       />
       <TextField
         name='email'
