@@ -56,7 +56,6 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
     name: business.name,
     address: business.address,
     phone: business.phone,
-    country_code: business.country_code,
     email: business.email,
     instagram: business.instagram,
     facebook: business.facebook,
@@ -78,7 +77,6 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
   });
 
   const [phoneError, setPhoneError] = useState(false);
-  // const [countryCodeError, setCountryCodeError] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
@@ -96,23 +94,6 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
       setPhoneError(false);
     } else {
       setPhoneError(true);
-    }
-  };
-
-  // const validateCountryCode = (value) => {
-  //   if (value) {
-  //     setCountryCodeError(false);
-  //   } else {
-  //     setCountryCodeError(true);
-  //   }
-  // }
-
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    if (e.target.name === 'phone') {
-      validatePhoneNumber(e.target.value);
-    } else if (e.target.name === 'areaCode') {
-      // check that areaCode is not default value (null?)
-      // validateCountryCode(e.target.value);
     }
   };
 
@@ -140,12 +121,6 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
     handleClose();
   };
 
-  // ! type this later
-  const countryCodes = [
-    { value: '1', label: '+1 (US)' },
-    { value: '44', label: '+44 (UK)' },
-  ];
-
   return (
     <form
       className={classes.form}
@@ -169,19 +144,6 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
         required
         onChange={handleChange}
       />
-      // ! might not need error state at all, just don't have null country code option in Select
-      <Select
-        name='country_code'
-        value={formFields.country_code}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        // error={countryCodeError}
-      >
-        {countryCodes.map(country => {
-          return <MenuItem value={country.value}>{country.label}</MenuItem>;
-        })}
-      </Select>
-      {/* {countryCodeError && <FormHelperText error>Country code is required</FormHelperText>} */}
       {/* ! add auto-formatting to d-ddd-ddd-dddd format and only allow number input */}
       {/* allow pasting of numbers but strip non-digit characters like '+' */}
       <TextField
@@ -190,7 +152,7 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
         label='Phone'
         variant='outlined'
         type='number'
-        onBlur={handleBlur}
+        onBlur={e => validatePhoneNumber(e.target.value)}
         onChange={handleChange}
         error={phoneError}
         helperText={phoneError ? 'Invalid phone number' : ''}
