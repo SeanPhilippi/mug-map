@@ -7,7 +7,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import FormHelperText from '@material-ui/core/FormHelperText';
+// import FormHelperText from '@material-ui/core/FormHelperText';
 import useFetch from '../../../hooks/useFetch.ts';
 import getCoordsFromOpenCage from '../../../utils/getCoordsFromOpenCage.ts';
 import type { BusinessData } from '../../../types.ts';
@@ -55,8 +55,8 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
     // text fields
     name: business.name,
     address: business.address,
-    // countryCode: business.country_code,
     phone: business.phone,
+    country_code: business.country_code,
     email: business.email,
     instagram: business.instagram,
     facebook: business.facebook,
@@ -141,10 +141,10 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
   };
 
   // ! type this later
-  // const countryCodes = [
-  //   { value: '1', label: '+1 (US)' },
-  //   { value: '44', label: '+44 (UK)' },
-  // ];
+  const countryCodes = [
+    { value: '1', label: '+1 (US)' },
+    { value: '44', label: '+44 (UK)' },
+  ];
 
   return (
     <form
@@ -170,17 +170,17 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
         onChange={handleChange}
       />
       // ! might not need error state at all, just don't have null country code option in Select
-      {/* <Select
+      <Select
         name='country_code'
         value={formFields.country_code}
         onChange={handleChange}
         onBlur={handleBlur}
-        error={countryCodeError}
+        // error={countryCodeError}
       >
         {countryCodes.map(country => {
           return <MenuItem value={country.value}>{country.label}</MenuItem>;
         })}
-      </Select> */}
+      </Select>
       {/* {countryCodeError && <FormHelperText error>Country code is required</FormHelperText>} */}
       {/* ! add auto-formatting to d-ddd-ddd-dddd format and only allow number input */}
       {/* allow pasting of numbers but strip non-digit characters like '+' */}

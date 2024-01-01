@@ -12,7 +12,8 @@ export interface BusinessMarkerData {
 export interface BusinessData {
   name: string;
   address: string;
-  phone: string;
+  phone: number;
+  country_code: number,
   email: string;
   instagram: string;
   facebook: string;
