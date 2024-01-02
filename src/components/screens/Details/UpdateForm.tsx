@@ -7,7 +7,6 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-// import FormHelperText from '@material-ui/core/FormHelperText';
 import useFetch from '../../../hooks/useFetch.ts';
 import getCoordsFromOpenCage from '../../../utils/getCoordsFromOpenCage.ts';
 import type { BusinessData } from '../../../types.ts';
