@@ -8,6 +8,7 @@ import {
   Twitter as TwitterIcon,
   LinkedIn as LinkedInIcon,
 } from '@material-ui/icons';
+import BlueskyIcon from '../../shared/custom-icons/BlueskyIcon';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
@@ -47,6 +48,14 @@ const SocialMediaPanel: React.FC = () => {
         <IconButton>
           <LinkedInIcon />
         </IconButton>
+
+        <IconButton>
+          <BlueskyIcon />
+        </IconButton>
+
+        {/* <IconButton>
+          <NostrIcon />
+        </IconButton> */}
       </Box>
     </Paper>
   );
