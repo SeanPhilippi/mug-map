@@ -8,9 +8,6 @@ const useStyles = makeStyles({
   },
   blueskyIcon: {
     'height': '100%',
-    '& path.st0': {
-      fill: 'grey',
-    },
   },
 });
 
