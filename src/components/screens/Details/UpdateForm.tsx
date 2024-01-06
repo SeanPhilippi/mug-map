@@ -39,6 +39,17 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
   console.log('data', data);
   console.log('error', error);
 
+  // converts booleans and null values to proper keys for Select components
+  const getSelectValue = (value: boolean | null) => {
+    if (value) {
+      return 'yes';
+    } else if (value === false) {
+      return 'no';
+    } else {
+      return 'noSure';
+    }
+  };
+
   const [formFields, setFormFields] = useState({
     // text fields
     name: business.name,
@@ -50,10 +61,11 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
     x: business.x,
     website: business.website,
     // selects
-    offers_mugs: business.offers_mugs !== null ? (business.offers_mugs.toString()) : 'notSure',
-    accepts_personal_mug: business.accepts_personal_mug !== null ? (business.accepts_personal_mug.toString()) : 'notSure',
-    wifi: business.wifi !== null ? (business.wifi.toString()) : 'notSure',
-    sufficient_outlets: business.sufficient_outlets !== null ? (business.sufficient_outlets.toString()) : 'notSure',
+    offers_mugs: business.offers_mugs !== null ? getSelectValue(business.offers_mugs) : 'notSure',
+    accepts_personal_mug:
+      business.accepts_personal_mug !== null ? getSelectValue(business.accepts_personal_mug) : 'notSure',
+    wifi: business.wifi !== null ? getSelectValue(business.wifi) : 'notSure',
+    sufficient_outlets: business.sufficient_outlets !== null ? getSelectValue(business.sufficient_outlets) : 'notSure',
     // text fields
     description: business.description,
     // not populated w previous data, because user does not need to know past values and
@@ -63,14 +75,25 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
     message_to_admin: '',
   });
 
+  const [phoneError, setPhoneError] = useState(false);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('==name', e.target.name);
-    console.log('==checked', e.target.checked);
-    console.log('==value', e.target.value);
+    const name = e.target.name;
+    const value = e.target.value;
+    console.log('==name', name);
+    console.log('==value', value);
     setFormFields({
       ...formFields,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
+  };
+
+  const validatePhoneNumber = value => {
+    if (value.match(/^\d+$/) && value.length >= 10 && value.length <= 15) {
+      setPhoneError(false);
+    } else {
+      setPhoneError(true);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -128,7 +151,10 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
         label='Phone'
         variant='outlined'
         type='number'
+        onBlur={e => validatePhoneNumber(e.target.value)}
         onChange={handleChange}
+        error={phoneError}
+        helperText={phoneError ? 'Invalid phone number' : ''}
       />
       <TextField
         name='email'
@@ -168,14 +194,6 @@ const UpdateForm: FC<UpdateFormProps> = ({ business, businessId, handleClose, fe
         placeholder='@'
         onChange={handleChange}
       />
-      {/* <TextField
-        name='youtube'
-        value={formFields.youtube}
-        label='Youtube'
-        variant='outlined'
-        placeholder='youtube.com/
-        onChange={handleChange}
-      /> */}
       <TextField
         name='website'
         value={formFields.website}
