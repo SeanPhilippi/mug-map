@@ -15,6 +15,9 @@ const useStyles = makeStyles({
     right: '2rem',
     zIndex: 1,
   },
+  text: {
+    color: 'rgba(0, 0, 0, 0.54)',
+  }
 });
 
 const CopyrightPanel: React.FC = () => {
@@ -27,8 +30,8 @@ const CopyrightPanel: React.FC = () => {
         flexDirection='column'
         alignItems='center'
       >
-        <Typography>© 2023 PPBoys Ltd. | Github</Typography>
-        <Typography>Photo by Luke Chesser</Typography>
+        <Typography className={classes.text}>© 2023 PPBoys Ltd. | Github</Typography>
+        <Typography className={classes.text}>Photo by Luke Chesser</Typography>
       </Box>
     </Paper>
   );
