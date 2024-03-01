@@ -3,14 +3,14 @@ import react from '@vitejs/plugin-react-swc';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  server: {
-    watch: {
-      usePolling: true,
-    },
-    host: true,
-    strictPort: true,
-    port: 5173,
-  },
+  // server: {
+  //   watch: {
+  //     usePolling: true,
+  //   },
+  //   host: true,
+  //   strictPort: true,
+  //   port: 5173,
+  // },
   plugins: [react()],
   resolve: {
     alias: [
@@ -20,7 +20,7 @@ export default defineConfig({
       },
     ],
   },
-  //Add build if you are going to use a Git-based (Github or CodeCommit) deployement
+  // Add build if you are going to use a Git-based (Github or CodeCommit) deployment
   build: {
     outDir: 'build',
   },
