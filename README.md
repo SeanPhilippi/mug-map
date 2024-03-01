@@ -11,5 +11,5 @@ You need to have the Flask API running at the same time which can be found at:
 https://github.com/SeanPhilippi/mug-map-api
 Follow the instructions from the README.md in that repo to start up the Flask API.
 
-## Deveopment Using Docker
+## Development Using Docker
 Coming soon
