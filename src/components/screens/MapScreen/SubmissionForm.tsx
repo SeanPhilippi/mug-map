@@ -22,9 +22,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-interface SubmissionFormProps {
+type SubmissionFormProps = {
   handleClose: () => void;
-}
+};
 
 // ! ADD VALIDATION TO FORM FIELDS THAT NEED IT
 // ! phone

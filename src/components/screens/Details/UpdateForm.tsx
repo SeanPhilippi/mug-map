@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-interface UpdateFormProps {
+type UpdateFormProps = {
   business: BusinessData;
   businessId: number;
   handleClose: () => void;

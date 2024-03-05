@@ -33,9 +33,9 @@ const useStyles = makeStyles({
   },
 });
 
-interface AdminScreenProps {
+type AdminScreenProps = {
   screen: string;
-}
+};
 
 const AdminScreen: React.FC<AdminScreenProps> = ({ screen }) => {
   const [email, setEmail] = useState('');

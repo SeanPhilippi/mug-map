@@ -1,4 +1,4 @@
-export interface BusinessMarkerData {
+export type BusinessMarkerData = {
   id: number;
   name: string;
   offers_mugs: boolean;
@@ -9,7 +9,7 @@ export interface BusinessMarkerData {
   lng: number;
 }
 
-export interface BusinessData {
+export type BusinessData = {
   name: string;
   address: string;
   phone: string;

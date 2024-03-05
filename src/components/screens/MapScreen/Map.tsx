@@ -6,7 +6,7 @@ import useFetch from '../../../hooks/useFetch.ts';
 import { useSnackbar } from '../../../hooks/useSnackbar.ts';
 import type { BusinessMarkerData } from '../../../types';
 
-interface MapProps {
+type MapProps = {
   coords: {
     lat: number;
     lng: number;

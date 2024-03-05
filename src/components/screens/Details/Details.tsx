@@ -25,7 +25,7 @@ import UpdateForm from './UpdateForm';
 import useFetch from '../../../hooks/useFetch.ts';
 import type { BusinessData } from '../../../types.ts';
 
-interface DetailsParams {
+type DetailsParams = {
   id: string;
 }
 

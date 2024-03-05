@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, FC } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -26,15 +26,15 @@ const useStyles = makeStyles({
   },
 });
 
-interface AdminPortalProps {}
+type AdminDashboardProps = {};
 
-interface UpdateProposal {
+type UpdateProposal = {
   id: number;
   business: string;
   details: string;
-}
+};
 
-const AdminPortal: React.FC<AdminPortalProps> = () => {
+const AdminDashboard: FC<AdminDashboardProps> = () => {
   const classes = useStyles();
   const [selectedUpdate, setSelectedUpdate] = useState<any>(null);
   const [editDetails, setEditDetails] = useState('');
@@ -146,4 +146,4 @@ const AdminPortal: React.FC<AdminPortalProps> = () => {
   );
 };
 
-export default AdminPortal;
+export default AdminDashboard;
